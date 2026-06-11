@@ -1,0 +1,24 @@
+---
+import { categoryLabels, url } from '../i18n';
+interface Props {
+  lang: 'es' | 'nl';
+  categories: string[];
+  active?: string;
+}
+const { lang, categories, active } = Astro.props;
+const allHref = lang === 'es' ? url('/blog/') : url('/nl/blog-2/');
+const basePath = lang === 'es' ? '/blog/category/' : '/nl/blog/category/';
+---
+<nav class="cat-filter" aria-label="Filtrar por categoría">
+  <a href={allHref} class={!active ? 'cat-filter__item is-active' : 'cat-filter__item'}>
+    {lang === 'es' ? 'Todos' : 'Alle'}
+  </a>
+  {categories.map((cat) => (
+    <a
+      href={url(`${basePath}${cat}/`)}
+      class={active === cat ? 'cat-filter__item is-active' : 'cat-filter__item'}
+    >
+      {categoryLabels[cat] ?? cat}
+    </a>
+  ))}
+</nav>

@@ -2,15 +2,18 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PostCard from '../../components/PostCard.astro';
+import CategoryFilter from '../../components/CategoryFilter.astro';
 import { ui } from '../../i18n';
 const t = ui.es;
 const posts = (await getCollection('blog', (p) => p.data.lang === 'es' && !p.data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const categories = [...new Set(posts.flatMap((p) => p.data.categories))];
 ---
 <Base title="Blog" lang="es" permalink="/blog/" altPermalink="/nl/blog-2/"
       description="Artículos sobre SEO, inteligencia artificial y marketing digital.">
   <div class="wrap">
     <h1 class="page-title">Blog</h1>
+    <CategoryFilter lang="es" categories={categories} />
     <div class="post-grid">
       {posts.map((post) => <PostCard post={post} />)}
     </div>
