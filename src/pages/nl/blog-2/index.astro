@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import PostCard from '../../../components/PostCard.astro';
+const posts = (await getCollection('blog', (p) => p.data.lang === 'nl' && !p.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base title="Blog" lang="nl" permalink="/nl/blog-2/" altPermalink="/blog/"
+      description="Artikelen over SEO, kunstmatige intelligentie en digitale marketing.">
+  <div class="wrap">
+    <h1 class="page-title">Blog</h1>
+    <div class="post-grid">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </div>
+</Base>

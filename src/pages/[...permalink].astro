@@ -1,0 +1,33 @@
+---
+// Páginas estáticas (servicios, contacto, legales…) en ES (raíz) y NL (/nl/),
+// con las mismas URLs que tenían en WordPress.
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((page) => {
+    const alt = pages.find(
+      (p) => p.data.translationKey === page.data.translationKey && p.data.lang !== page.data.lang
+    );
+    return {
+      params: { permalink: page.data.permalink.replace(/^\/|\/$/g, '') },
+      props: { page, alt },
+    };
+  });
+}
+const { page, alt } = Astro.props;
+const d = page.data;
+const { Content } = await render(page);
+---
+<Base title={d.title} description={d.description} lang={d.lang} permalink={d.permalink}
+      altPermalink={alt?.data.permalink}>
+  <div class="wrap">
+    <header class="article-header">
+      <h1>{d.title}</h1>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </div>
+</Base>

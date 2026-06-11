@@ -1,0 +1,16 @@
+---
+import { Image } from 'astro:assets';
+import { categoryLabels, ui } from '../i18n';
+const { post } = Astro.props;
+const d = post.data;
+const cat = categoryLabels[d.categories[0]] ?? d.categories[0];
+const locale = d.lang === 'es' ? 'es-ES' : 'nl-NL';
+---
+<article class="post-card">
+  {d.cover && <a href={d.permalink} tabindex="-1" aria-hidden="true"><Image src={d.cover} alt="" widths={[480, 768]} sizes="(max-width: 768px) 100vw, 24rem" /></a>}
+  <div class="body">
+    <span class="cat">{cat}</span>
+    <h3><a href={d.permalink}>{d.title}</a></h3>
+    <time datetime={d.date.toISOString().slice(0,10)}>{d.date.toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' })}</time>
+  </div>
+</article>

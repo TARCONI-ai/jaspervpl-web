@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import PostPage from '../../../components/PostPage.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => p.data.lang === 'es' && !p.data.draft);
+  const all = await getCollection('blog');
+  return posts.map((post) => {
+    const [, , category, slug] = post.data.permalink.split('/');
+    const alt = all.find((p) => p.data.translationKey === post.data.translationKey && p.data.lang === 'nl');
+    return { params: { category, slug }, props: { post, alt } };
+  });
+}
+const { post, alt } = Astro.props;
+---
+<PostPage post={post} alt={alt} />

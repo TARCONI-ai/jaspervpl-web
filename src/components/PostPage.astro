@@ -1,0 +1,32 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { categoryLabels } from '../i18n';
+const { post, alt } = Astro.props;
+const d = post.data;
+const { Content } = await render(post);
+const cat = categoryLabels[d.categories[0]] ?? d.categories[0];
+const locale = d.lang === 'es' ? 'es-ES' : 'nl-NL';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title,
+  datePublished: d.date.toISOString().slice(0, 10),
+  inLanguage: d.lang === 'es' ? 'es-ES' : 'nl-NL',
+  author: { '@type': 'Person', name: 'Jasper van Puffelen López', url: 'https://www.jaspervpl.com/' },
+  mainEntityOfPage: 'https://www.jaspervpl.com' + d.permalink,
+};
+---
+<Base title={d.title} description={d.description} lang={d.lang} permalink={d.permalink}
+      altPermalink={alt?.data.permalink} ogImage={d.cover?.src} jsonLd={jsonLd}>
+  <div class="wrap">
+    <header class="article-header">
+      <span class="cat">{cat}</span>
+      <h1>{d.title}</h1>
+      <time datetime={d.date.toISOString().slice(0,10)}>{d.date.toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' })}</time>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../../layouts/Base.astro';
+import PostCard from '../../../../components/PostCard.astro';
+import { categoryLabels } from '../../../../i18n';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => p.data.lang === 'es' && !p.data.draft);
+  const cats = [...new Set(posts.flatMap((p) => p.data.categories))];
+  return cats.map((category) => ({
+    params: { category },
+    props: { posts: posts.filter((p) => p.data.categories.includes(category)) },
+  }));
+}
+const { category } = Astro.params;
+const { posts } = Astro.props;
+const label = categoryLabels[category] ?? category;
+const sorted = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base title={label} lang="es" permalink={`/blog/category/${category}/`}
+      description={`Artículos de la categoría ${label}.`}>
+  <div class="wrap">
+    <h1 class="page-title">{label}</h1>
+    <div class="post-grid">
+      {sorted.map((post) => <PostCard post={post} />)}
+    </div>
+  </div>
+</Base>

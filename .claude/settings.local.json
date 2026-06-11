@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321)",
+      "Bash(cp \"/Users/jaspervanpuffelenlopez/Desktop/jaspervpl-astro/ChatGPT Image 19 may 2025, 11_36_56.png\" /Users/jaspervanpuffelenlopez/Desktop/jaspervpl-astro/public/logo.png)",
+      "Bash(cp /Users/jaspervanpuffelenlopez/Desktop/jaspervpl-astro/favicon_64x64.png /Users/jaspervanpuffelenlopez/Desktop/jaspervpl-astro/public/favicon.png)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)"
+    ]
+  }
+}

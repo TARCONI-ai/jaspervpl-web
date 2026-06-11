@@ -1,0 +1,13 @@
+# jaspervpl.com
+
+> Blog y servicios de Jasper van Puffelen López: SEO, AIO/GEO e inteligencia artificial aplicada al marketing digital. Contenido en español (principal) y neerlandés (/nl/).
+
+## Contenido principal
+- [Blog](https://www.jaspervpl.com/blog/): artículos sobre SEO, IA y marketing digital
+- [Servicios](https://www.jaspervpl.com/servicios/): auditoría SEO, estudio de palabras clave, contenido, linkbuilding e informes
+- [Recursos](https://www.jaspervpl.com/recursos/): herramientas y materiales
+- [Contacto](https://www.jaspervpl.com/contacto/)
+
+## Nederlands
+- [Blog NL](https://www.jaspervpl.com/nl/blog-2/)
+- [Diensten](https://www.jaspervpl.com/nl/diensten/)
