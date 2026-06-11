@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../../../../layouts/Base.astro';
 import PostCard from '../../../../../components/PostCard.astro';
+import CategoryFilter from '../../../../../components/CategoryFilter.astro';
 import { categoryLabels } from '../../../../../i18n';
 
 export async function getStaticPaths() {
@@ -9,11 +10,14 @@ export async function getStaticPaths() {
   const cats = [...new Set(posts.flatMap((p) => p.data.categories))];
   return cats.map((category) => ({
     params: { category },
-    props: { posts: posts.filter((p) => p.data.categories.includes(category)) },
+    props: {
+      posts: posts.filter((p) => p.data.categories.includes(category)),
+      allCategories: cats,
+    },
   }));
 }
 const { category } = Astro.params;
-const { posts } = Astro.props;
+const { posts, allCategories } = Astro.props;
 const label = categoryLabels[category] ?? category;
 const sorted = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
@@ -21,6 +25,7 @@ const sorted = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf(
       description={`Artikelen in de categorie ${label}.`}>
   <div class="wrap">
     <h1 class="page-title">{label}</h1>
+    <CategoryFilter lang="nl" categories={allCategories} active={category} />
     <div class="post-grid">
       {sorted.map((post) => <PostCard post={post} />)}
     </div>
