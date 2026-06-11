@@ -1,11 +1,11 @@
 ---
-import { ui } from '../i18n';
+import { ui, url } from '../i18n';
 interface Props { lang: 'es' | 'nl' }
 const { lang } = Astro.props;
 const t = ui[lang];
 const legal = lang === 'es'
-  ? [['/aviso-legal/', t.footerLegal], ['/politica-de-privacidad/', t.footerPrivacy], ['/politica-de-cookies/', t.footerCookies]]
-  : [['/nl/juridische-kennisgeving/', t.footerLegal], ['/nl/privacybeleid/', t.footerPrivacy], ['/nl/cookiebeleid/', t.footerCookies]];
+  ? [[url('/aviso-legal/'), t.footerLegal], [url('/politica-de-privacidad/'), t.footerPrivacy], [url('/politica-de-cookies/'), t.footerCookies]]
+  : [[url('/nl/juridische-kennisgeving/'), t.footerLegal], [url('/nl/privacybeleid/'), t.footerPrivacy], [url('/nl/cookiebeleid/'), t.footerCookies]];
 ---
 <footer class="site-footer">
   <div class="wrap">

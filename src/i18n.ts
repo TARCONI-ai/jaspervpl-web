@@ -1,3 +1,6 @@
+const _base = import.meta.env.BASE_URL.replace(/\/$/, '');
+export const url = (path: string) => _base + path;
+
 export const ui = {
   es: {
     blog: 'Blog', services: 'Servicios', resources: 'Recursos', contact: 'Contacto',
@@ -17,16 +20,16 @@ export const ui = {
 
 export const nav = {
   es: [
-    { href: '/', label: 'Inicio' }, { href: '/servicios/', label: 'Servicios' },
-    { href: '/blog/', label: 'Blog' }, { href: '/recursos/', label: 'Recursos' },
-    { href: '/contacto/', label: 'Contacto' },
+    { href: url('/'), label: 'Inicio' }, { href: url('/servicios/'), label: 'Servicios' },
+    { href: url('/blog/'), label: 'Blog' }, { href: url('/recursos/'), label: 'Recursos' },
+    { href: url('/contacto/'), label: 'Contacto' },
   ],
   nl: [
-    { href: '/nl/', label: 'Home' }, { href: '/nl/diensten/', label: 'Diensten' },
-    { href: '/nl/blog-2/', label: 'Blog' }, { href: '/nl/middelen/', label: 'Middelen' },
-    { href: '/nl/contact/', label: 'Contact' },
+    { href: url('/nl/'), label: 'Home' }, { href: url('/nl/diensten/'), label: 'Diensten' },
+    { href: url('/nl/blog-2/'), label: 'Blog' }, { href: url('/nl/middelen/'), label: 'Middelen' },
+    { href: url('/nl/contact/'), label: 'Contact' },
   ],
-} as const;
+};
 
 export const categoryLabels: Record<string, string> = {
   noticias: 'Noticias', libros: 'Libros', peliculas: 'Películas',
