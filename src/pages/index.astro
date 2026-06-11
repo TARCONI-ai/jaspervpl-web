@@ -2,7 +2,8 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import PostCard from '../components/PostCard.astro';
-import { ui } from '../i18n';
+import HeroBauhaus from '../components/HeroBauhaus.astro';
+import { ui, url } from '../i18n';
 const t = ui.es;
 const posts = (await getCollection('blog', (p) => p.data.lang === 'es' && !p.data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -10,15 +11,25 @@ const latest = posts.slice(0, 6);
 ---
 <Base title="Inicio" lang="es" permalink="/" altPermalink="/nl/"
       description="SEO, inteligencia artificial y marketing digital. Artículos, recursos y servicios de Jasper van Puffelen López.">
-  <div class="wrap">
-    <section class="hero">
-      <span class="eyebrow">SEO · IA · Marketing digital</span>
-      <h1>Posicionamiento para buscadores y para modelos de IA</h1>
-      <p>Soy Jasper van Puffelen López. Escribo sobre SEO, AIO/GEO e inteligencia artificial aplicada al marketing, y ayudo a negocios a ser encontrados — por personas y por máquinas.</p>
-    </section>
-    <h2 class="section-label">{t.latest}</h2>
-    <div class="post-grid">
-      {latest.map((post) => <PostCard post={post} />)}
+  <HeroBauhaus
+    introLine1="Hola, soy Jasper van Puffelen López,"
+    introLine2="consultor de SEO e inteligencia artificial"
+    typeText="Me alegra que pases por aquí. Posiciono marcas para buscadores y para modelos de IA. ¿Qué construimos?"
+    pills={[
+      { href: url('/contacto/'), label: 'Cuéntame tu proyecto' },
+      { href: url('/servicios/'), label: 'Ver servicios' },
+      { href: url('/blog/'), label: 'Leer el blog' },
+      { href: url('/recursos/'), label: 'Explorar recursos' },
+    ]}
+    emailLabel="Escríbeme"
+    email="jaspervpl@gmail.com"
+  />
+  <div class="after-hero">
+    <div class="wrap">
+      <h2 class="section-label">{t.latest}</h2>
+      <div class="post-grid">
+        {latest.map((post) => <PostCard post={post} />)}
+      </div>
     </div>
   </div>
 </Base>

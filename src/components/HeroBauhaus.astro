@@ -1,0 +1,69 @@
+---
+interface Props {
+  introLine1: string;
+  introLine2: string;
+  typeText: string;
+  pills: { href: string; label: string }[];
+  emailLabel: string;
+  email: string;
+}
+const { introLine1, introLine2, typeText, pills, emailLabel, email } = Astro.props;
+const variants = ['bh-btn--red', 'bh-btn--blue', 'bh-btn--yellow', ''];
+---
+<section class="bh-hero">
+  <div class="bh-hero__left">
+    <p class="bh-hero__eyebrow">{introLine1}</p>
+    <h1 class="bh-hero__title">{introLine2}</h1>
+    <p class="bh-hero__type" data-typewriter data-text={typeText}>
+      <span data-typed></span><span class="bh-cursor" data-cursor></span>
+    </p>
+    <div class="bh-hero__actions" data-actions>
+      {pills.map((p, i) => <a class={`bh-btn ${variants[i % variants.length]}`} href={p.href}>{p.label}</a>)}
+      <button class="bh-btn" type="button" data-copy-email={email}>
+        <span>{emailLabel}: <u>{email}</u></span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="3.5" y="3.5" width="7" height="7" />
+          <rect x="1" y="1" width="7" height="7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="bh-hero__right" aria-hidden="true">
+    <span class="bh-comp__circle"></span>
+    <span class="bh-comp__triangle"></span>
+    <span class="bh-comp__square"></span>
+  </div>
+</section>
+<script>
+  // ── Typewriter ──
+  const tw = document.querySelector<HTMLElement>('[data-typewriter]');
+  if (tw) {
+    const text = tw.dataset.text ?? '';
+    const typed = tw.querySelector('[data-typed]')!;
+    const cursor = tw.querySelector('[data-cursor]')!;
+    const SPEED = 38;
+    const START_DELAY = 600;
+    setTimeout(() => {
+      let i = 0;
+      const interval = setInterval(() => {
+        i++;
+        typed.textContent = text.slice(0, i);
+        if (i >= text.length) {
+          clearInterval(interval);
+          cursor.classList.add('is-done');
+        }
+      }, SPEED);
+    }, START_DELAY);
+  }
+
+  // ── Botonera: fade-in + slide-up a los 400 ms ──
+  const actionsEl = document.querySelector('[data-actions]');
+  if (actionsEl) setTimeout(() => actionsEl.classList.add('is-visible'), 400);
+
+  // ── Copiar email ──
+  const copyBtn = document.querySelector<HTMLElement>('[data-copy-email]');
+  copyBtn?.addEventListener('click', () => {
+    const email = copyBtn.dataset.copyEmail;
+    if (email) navigator.clipboard.writeText(email);
+  });
+</script>

@@ -7,6 +7,7 @@ const cat = categoryLabels[d.categories[0]] ?? d.categories[0];
 const locale = d.lang === 'es' ? 'es-ES' : 'nl-NL';
 ---
 <article class="post-card">
+  <span class="post-card__shape" aria-hidden="true"></span>
   {d.cover && <a href={url(d.permalink)} tabindex="-1" aria-hidden="true"><Image src={d.cover} alt="" widths={[480, 768]} sizes="(max-width: 768px) 100vw, 24rem" /></a>}
   <div class="body">
     <span class="cat">{cat}</span>

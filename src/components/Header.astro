@@ -1,18 +1,65 @@
 ---
-import { nav, url } from '../i18n';
+import { url } from '../i18n';
 interface Props { lang: 'es' | 'nl'; altPermalink?: string }
 const { lang, altPermalink } = Astro.props;
-const items = nav[lang];
-const current = Astro.url.pathname;
+
+const links = lang === 'es'
+  ? [
+      { href: url('/servicios/'), label: 'Servicios' },
+      { href: url('/blog/'), label: 'Blog' },
+      { href: url('/recursos/'), label: 'Recursos' },
+    ]
+  : [
+      { href: url('/nl/diensten/'), label: 'Diensten' },
+      { href: url('/nl/blog-2/'), label: 'Blog' },
+      { href: url('/nl/middelen/'), label: 'Middelen' },
+    ];
+const cta = lang === 'es'
+  ? { href: url('/contacto/'), label: 'Contacto' }
+  : { href: url('/nl/contact/'), label: 'Contact' };
 const switchHref = url(altPermalink ?? (lang === 'es' ? '/nl/' : '/'));
 const switchLabel = lang === 'es' ? 'NL' : 'ES';
 ---
-<header class="site-header">
-  <div class="wrap">
-    <a class="brand" href={url(lang === 'es' ? '/' : '/nl/')}><img src={`${import.meta.env.BASE_URL}/logo.png`} alt="JasperVPL" /></a>
-    <nav class="site-nav" aria-label="principal">
-      {items.map((i) => <a href={i.href} aria-current={current === i.href ? 'page' : undefined}>{i.label}</a>)}
-    </nav>
-    <a class="lang-switch" href={switchHref} aria-label={lang === 'es' ? 'Nederlandse versie' : 'Versión en español'}>{switchLabel}</a>
+<header class="bh-nav">
+  <a class="bh-logo" href={url(lang === 'es' ? '/' : '/nl/')}>
+    <span class="bh-logo__shapes" aria-hidden="true">
+      <span class="bh-shape bh-shape--circle"></span>
+      <span class="bh-shape bh-shape--square"></span>
+      <span class="bh-shape bh-shape--triangle"></span>
+    </span>
+    <span class="bh-logo__text">Jaspervpl®</span>
+  </a>
+  <nav class="bh-links" aria-label="principal">
+    {links.map((i) => <a href={i.href}>{i.label}</a>)}
+  </nav>
+  <div class="bh-nav__right">
+    <a class="bh-btn bh-btn--yellow" href={cta.href}>{cta.label}</a>
+    <a class="bh-lang" href={switchHref} aria-label={lang === 'es' ? 'Nederlandse versie' : 'Versión en español'}>{switchLabel}</a>
   </div>
+  <button class="bh-burger" type="button" aria-label="Menú" aria-expanded="false" data-burger>
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </header>
+<div class="bh-overlay" data-overlay>
+  <div class="bh-overlay__shapes" aria-hidden="true">
+    <span class="bh-shape bh-shape--circle"></span>
+    <span class="bh-shape bh-shape--square"></span>
+    <span class="bh-shape bh-shape--triangle"></span>
+  </div>
+  {links.map((i) => <a href={i.href}>{i.label}</a>)}
+  <a href={cta.href}>{cta.label}</a>
+  <a href={switchHref}>{switchLabel === 'NL' ? 'Nederlands' : 'Español'}</a>
+</div>
+<script>
+  const burger = document.querySelector('[data-burger]');
+  const overlayEl = document.querySelector('[data-overlay]');
+  if (burger && overlayEl) {
+    burger.addEventListener('click', () => {
+      const open = burger.classList.toggle('is-open');
+      overlayEl.classList.toggle('is-open', open);
+      burger.setAttribute('aria-expanded', String(open));
+    });
+  }
+</script>
