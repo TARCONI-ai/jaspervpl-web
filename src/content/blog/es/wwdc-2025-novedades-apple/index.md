@@ -6,6 +6,7 @@ slug: "wwdc-2025-novedades-apple"
 categories: ["noticias"]
 translationKey: "wwdc-2025-novedades-apple"
 cover: "./images/ChatGPT-Image-9-jun-2025-19_32_24.png"
+coverAiGenerated: true
 permalink: "/blog/noticias/wwdc-2025-novedades-apple/"
 draft: false
 ---

@@ -6,6 +6,7 @@ slug: "hoe-maak-je-je-eigen-gepersonaliseerde-gpt-in-chatgpt-stapsgewijze-gids-o
 categories: ["nieuws"]
 translationKey: "como-crear-tu-propio-gpt-personalizado-en-chatgpt-guia-paso-a-paso-para-mejorar-tu-productividad"
 cover: "./images/ChatGPT-Image-25-jun-2025-10_47_50.png"
+coverAiGenerated: true
 permalink: "/nl/blog/nieuws/hoe-maak-je-je-eigen-gepersonaliseerde-gpt-in-chatgpt-stapsgewijze-gids-om-je-productiviteitte-verbeteren/"
 draft: false
 ---

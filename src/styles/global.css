@@ -251,6 +251,12 @@ h3 { font-size: 1.2rem; }
   filter: grayscale(1); transition: filter 0.3s ease-out;
 }
 .post-card:hover img { filter: grayscale(0); }
+.cover-wrap { position: relative; display: block; }
+.ai-badge {
+  position: absolute; left: 0.6rem; bottom: 0.6rem; z-index: 1;
+  background: var(--paper); border: 1.5px solid var(--ink); padding: 0.15rem 0.45rem;
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-soft);
+}
 .post-card__shape { position: absolute; top: 0.75rem; right: 0.75rem; width: 16px; height: 16px; z-index: 1; }
 .post-grid .post-card:nth-child(3n + 1) .post-card__shape { background: var(--red); border-radius: 50%; }
 .post-grid .post-card:nth-child(3n + 2) .post-card__shape { background: var(--yellow); }

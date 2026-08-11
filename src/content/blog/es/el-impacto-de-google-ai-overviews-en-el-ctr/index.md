@@ -6,6 +6,7 @@ slug: "el-impacto-de-google-ai-overviews-en-el-ctr"
 categories: ["noticias"]
 translationKey: "el-impacto-de-google-ai-overviews-en-el-ctr"
 cover: "./images/ChatGPT-Image-12-may-2025-10_56_06.png"
+coverAiGenerated: true
 permalink: "/blog/noticias/el-impacto-de-google-ai-overviews-en-el-ctr/"
 draft: false
 ---

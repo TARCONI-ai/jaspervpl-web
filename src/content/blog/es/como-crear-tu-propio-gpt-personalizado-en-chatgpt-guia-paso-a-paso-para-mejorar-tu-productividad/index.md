@@ -6,6 +6,7 @@ slug: "como-crear-tu-propio-gpt-personalizado-en-chatgpt-guia-paso-a-paso-para-m
 categories: ["noticias"]
 translationKey: "como-crear-tu-propio-gpt-personalizado-en-chatgpt-guia-paso-a-paso-para-mejorar-tu-productividad"
 cover: "./images/ChatGPT-Image-25-jun-2025-10_47_50.png"
+coverAiGenerated: true
 permalink: "/blog/noticias/como-crear-tu-propio-gpt-personalizado-en-chatgpt-guia-paso-a-paso-para-mejorar-tu-productividad/"
 draft: false
 ---

@@ -6,6 +6,7 @@ slug: "que-es-el-deep-research"
 categories: ["noticias"]
 translationKey: "que-es-el-deep-research"
 cover: "./images/ChatGPT-Image-20-jul-2025-14_46_24.png"
+coverAiGenerated: true
 permalink: "/blog/noticias/que-es-el-deep-research/"
 draft: false
 ---

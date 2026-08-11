@@ -12,6 +12,7 @@ const blog = defineCollection({
     translationKey: z.string(),
     permalink: z.string(),
     cover: image().optional(),
+    coverAiGenerated: z.boolean().default(false),
     description: z.string().optional(),
     draft: z.boolean().default(false),
   }),

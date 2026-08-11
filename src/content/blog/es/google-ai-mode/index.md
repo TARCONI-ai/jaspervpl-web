@@ -6,6 +6,7 @@ slug: "google-ai-mode"
 categories: ["noticias"]
 translationKey: "google-ai-mode"
 cover: "./images/ChatGPT-Image-22-may-2025-13_05_11.png"
+coverAiGenerated: true
 permalink: "/blog/noticias/google-ai-mode/"
 draft: false
 ---

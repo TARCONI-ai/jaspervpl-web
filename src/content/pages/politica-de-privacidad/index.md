@@ -109,6 +109,18 @@ Puedes desactivar las cookies de publicidad desde la misma configuración del na
 
 * * *
 
+### 🤖 Contenido generado con Inteligencia Artificial
+
+En cumplimiento del Reglamento (UE) 2024/1689 (Ley de Inteligencia Artificial), te informamos de lo siguiente:
+
+- El código y desarrollo de esta web se han realizado con la asistencia de herramientas de IA.
+
+- Algunas imágenes de portada de los artículos del blog han sido generadas con herramientas de IA (como ChatGPT). Estas imágenes están señaladas con la etiqueta **"Generado con IA"**.
+
+- El resto del contenido (textos, capturas de pantalla y fotografías) es de elaboración propia o procede de fuentes no generadas por IA.
+
+* * *
+
 ### 🔐 Más sobre cookies
 
 En esta Política de Privacidad te explicamos cómo tratamos los datos.  

@@ -8,7 +8,12 @@ const locale = d.lang === 'es' ? 'es-ES' : 'nl-NL';
 ---
 <article class="post-card">
   <span class="post-card__shape" aria-hidden="true"></span>
-  {d.cover && <a href={url(d.permalink)} tabindex="-1" aria-hidden="true"><Image src={d.cover} alt="" widths={[480, 768]} sizes="(max-width: 768px) 100vw, 24rem" /></a>}
+  {d.cover && (
+    <a href={url(d.permalink)} tabindex="-1" aria-hidden="true" class="cover-wrap">
+      <Image src={d.cover} alt="" widths={[480, 768]} sizes="(max-width: 768px) 100vw, 24rem" />
+      {d.coverAiGenerated && <span class="ai-badge">{d.lang === 'nl' ? 'AI-gegenereerd' : 'Generado con IA'}</span>}
+    </a>
+  )}
   <div class="body">
     <span class="cat">{cat}</span>
     <h3><a href={url(d.permalink)}>{d.title}</a></h3>

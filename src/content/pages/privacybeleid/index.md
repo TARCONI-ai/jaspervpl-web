@@ -76,6 +76,13 @@ Kan je IP-adres en technische gegevens verzamelen (zie hun privacybeleid).
 Toont advertenties afgestemd op jouw profiel.  
 Je kunt advertentiecookies uitschakelen via de instellingen van je browser.
 
+🤖 Met kunstmatige intelligentie gegenereerde inhoud
+
+In overeenstemming met Verordening (EU) 2024/1689 (de AI-verordening) informeren wij je over het volgende:  
+• De code en ontwikkeling van deze website zijn tot stand gekomen met behulp van AI-tools.  
+• Sommige omslagafbeeldingen van blogartikelen zijn gegenereerd met AI-tools (zoals ChatGPT). Deze afbeeldingen zijn gemarkeerd met het label "AI-gegenereerd".  
+• De overige inhoud (teksten, screenshots en foto's) is eigen werk of afkomstig uit bronnen die niet door AI zijn gegenereerd.
+
 🔐 Meer over cookies  
 In dit Privacybeleid leggen we uit hoe we gegevens verwerken.  
 Voor meer informatie over cookies, raadpleeg ons [Cookiebeleid](/nl/cookiebeleid/).

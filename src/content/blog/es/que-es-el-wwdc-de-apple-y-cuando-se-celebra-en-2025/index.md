@@ -6,6 +6,7 @@ slug: "que-es-el-wwdc-de-apple-y-cuando-se-celebra-en-2025"
 categories: ["noticias"]
 translationKey: "que-es-el-wwdc-de-apple-y-cuando-se-celebra-en-2025"
 cover: "./images/ChatGPT-Image-3-jun-2025-12_32_44.png"
+coverAiGenerated: true
 permalink: "/blog/noticias/que-es-el-wwdc-de-apple-y-cuando-se-celebra-en-2025/"
 draft: false
 ---
