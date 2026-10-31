@@ -17,7 +17,7 @@ Daarom kan de keuze van een kleur bepalend zijn voor de non-verbale communicatie
 
 Kleur is een ongelooflijk krachtig instrument voor marketeers. Het kan worden gebruikt om emoties over te brengen en reacties bij consumenten op te wekken. De kleuren die in marketingcampagnes worden gebruikt, hebben een grote invloed op de manier waarop mensen op marketingmateriaal reageren. Daarom is het belangrijk dat marketeers weten hoe kleuren het gedrag van consumenten beïnvloeden.
 
-Het is aangetoond dat het gebruik van kleur in reclame het gedrag van de consument beïnvloedt sinds reclame bestaat. Een leuk weetje is dat de eerste kleurenadvertentie werd gelanceerd door een bedrijf genaamd J Walter Thompson in 1887 en dat het een eenvoudig rood bord was met de woorden “Drink Coca Cola” in witte letters. In dit geval is het gebruik van rood bedoeld om mensen honger en dorst te laten voelen, omdat Coca Cola oorspronkelijk werd verkocht als een energiedrank.
+Het is aangetoond dat het gebruik van kleur in reclame het gedrag van de consument beïnvloedt sinds reclame bestaat. Een leuk weetje: Coca-Cola was een van de eerste merken die op kleur inzette. Al aan het eind van de 19e eeuw gebruikte het rood in zijn reclame, toen het nog als medicinaal tonicum werd verkocht.
 
 Omdat de perceptie van kleur van fundamenteel belang is, moet het merk perfect weten wie de doelgroep is waarop het zich wil richten en hoe het wil dat deze het merk waarneemt. Kleuren en kleurencombinaties zijn erg belangrijk voor het succes of falen van het merk.
 

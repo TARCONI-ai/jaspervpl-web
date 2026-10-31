@@ -17,7 +17,7 @@ Por eso, la elección de un color puede ser determinante en la comunicación no 
 
 El color es una herramienta increíblemente poderosa para los especialistas en marketing. Se puede usar para transmitir emociones y se puede usar para desencadenar respuestas en los consumidores. Los colores que se utilizan en las campañas de marketing tienen un gran impacto en la forma en que las personas responden al material de marketing, por lo que es importante que los especialistas en marketing sepan cómo los colores afectan el comportamiento del consumidor.
 
-Se ha demostrado que el uso del color en la publicidad afecta el comportamiento del consumidor desde que existe la publicidad. Como dato curioso, el primer anuncio a color fue lanzado, fue creado por una empresa llamada J Walter Thompson en 1887 y era un simple cartel rojo con las palabras "Bebe Coca Cola" escritas en letras blancas. En este caso, el uso del rojo está destinado a hacer que las personas sientan hambre y sed porque la Coca Cola originalmente se vendía como una bebida energética.
+Se ha demostrado que el uso del color en la publicidad afecta el comportamiento del consumidor desde que existe la publicidad. Como dato curioso, Coca-Cola fue una de las primeras marcas en apostar por el color: desde finales del siglo XIX usó el rojo en su publicidad, cuando todavía se vendía como tónico medicinal.
 
 Debido a que la percepción del color es un fundamental, la marca debe conocer a la perfección quién es el público objetivo al que se quiere dirigir y cómo quiere que éste perciba la marca. Los colores y las combinaciones de colores son muy importantes para el éxito o el fracaso de la marca.
 
