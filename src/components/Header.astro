@@ -4,13 +4,15 @@ import Icon from './Icon.astro';
 import { nav } from '../data/site';
 import { languages, getLang, getCopy, homePath, type Lang } from '../data/i18n';
 
-const lang = getLang(Astro.currentLocale);
+const lang = Astro.props.lang ?? getLang(Astro.currentLocale);
 const t = getCopy(lang);
 const langs = Object.keys(languages) as Lang[];
 
 interface Props {
   // Paths of the current page in each language; defaults to the home pages
-  alternates?: Record<Lang, string>;
+  alternates?: Partial<Record<Lang, string>>;
+  // Page language when the URL does not carry it
+  lang?: Lang;
 }
 const { alternates } = Astro.props;
 const altPath = (l: Lang) => alternates?.[l] ?? homePath(l);

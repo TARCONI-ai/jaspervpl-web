@@ -32,7 +32,7 @@ type Reading = {
   authorBio: string;
 };
 
-const blog = 'https://jaspervpl.com';
+const blog = '';
 
 export const reading: Record<Lang, Reading> = {
   es: {

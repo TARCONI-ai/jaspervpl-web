@@ -7,14 +7,17 @@ interface Props {
   title: string;
   description: string;
   // Paths of this page in each language; defaults to the home pages
-  alternates?: Record<Lang, string>;
+  alternates?: Partial<Record<Lang, string>>;
   // Extra structured data for this page
   jsonLd?: object;
+  // Page language when the URL does not carry it (Spanish posts live at /blog/, not /es/)
+  lang?: Lang;
+  ogImage?: string;
 }
 
-const { title, description, alternates, jsonLd } = Astro.props;
+const { title, description, alternates, jsonLd, ogImage } = Astro.props;
 const altPath = (l: Lang) => alternates?.[l] ?? homePath(l);
-const lang = getLang(Astro.currentLocale);
+const lang = Astro.props.lang ?? getLang(Astro.currentLocale);
 const t = getCopy(lang);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const person = {
@@ -35,10 +38,12 @@ const person = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {(Object.keys(languages) as Lang[]).map((l) => (
+    {(Object.keys(languages) as Lang[]).filter((l) => !alternates || alternates[l]).map((l) => (
       <link rel="alternate" hreflang={l} href={new URL(altPath(l), Astro.site)} />
     ))}
-    <link rel="alternate" hreflang="x-default" href={new URL(altPath(defaultLang), Astro.site)} />
+    {(!alternates || alternates[defaultLang]) && (
+      <link rel="alternate" hreflang="x-default" href={new URL(altPath(defaultLang), Astro.site)} />
+    )}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#F7F1E1" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#15221C" media="(prefers-color-scheme: dark)" />
@@ -46,6 +51,7 @@ const person = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site)} />}
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

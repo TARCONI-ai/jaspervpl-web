@@ -2,11 +2,15 @@
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import { nav, site } from '../data/site';
-import { getCopy, getLang, homePath } from '../data/i18n';
+import { getCopy, getLang, homePath, type Lang } from '../data/i18n';
 import { readingPath } from '../data/reading';
 
-const t = getCopy(Astro.currentLocale);
-const lang = getLang(Astro.currentLocale);
+interface Props {
+  // Page language when the URL does not carry it
+  lang?: Lang;
+}
+const lang = Astro.props.lang ?? getLang(Astro.currentLocale);
+const t = getCopy(lang);
 const home = homePath(lang);
 const base = Astro.url.pathname === home ? '' : home;
 const year = new Date().getFullYear();
