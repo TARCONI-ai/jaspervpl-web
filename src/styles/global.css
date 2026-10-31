@@ -1,0 +1,272 @@
+/*
+  JasperVPL v2 design tokens and base styles.
+  Source of truth: "Brand Guidelines JasperVPL v2" (17 Oct 2026).
+  Contrast ratios below were computed (WCAG 2.x relative luminance), not copied from the guidelines.
+*/
+
+:root {
+  /* Palette: Old Money clasico */
+  --green: #3A604F;         /* primary: logo, CTA, links, emphasis */
+  --green-deep: #24423A;    /* titles, hover, banners, code blocks */
+  --vanilla: #F7F1E1;       /* page background, text on green */
+  --vanilla-light: #FBF7EC; /* cards and surfaces */
+  --beige: #E6DAC0;         /* borders, dividers */
+  --ink: #1F2A25;           /* body text, 13.2:1 on vanilla */
+  --gold-old: #B08D57;      /* decorative only: lines, icons. 2.7:1, never text */
+  --gold-text: #8A6A38;     /* labels. 4.67:1 on vanilla-light, only 4.43:1 on vanilla */
+  --gold-light: #C9A96A;    /* accents on green only. 4.89:1 on green-deep, 1.99:1 on vanilla */
+  --night: #15221C;         /* optional dark mode background */
+
+  /* Semantic roles (light) */
+  --bg: var(--vanilla);
+  --surface: var(--vanilla-light);
+  --border: var(--beige);
+  --text: var(--ink);
+  --text-muted: #4A5751;    /* softened ink, 6.7:1 on vanilla */
+  --heading: var(--green-deep);
+  --emphasis: var(--green);
+  --label: var(--gold-text);
+  --label-bg: var(--vanilla-light); /* keeps gold labels above 4.5:1 */
+  --decor: var(--gold-old);
+  --logo: var(--green);
+  --btn-bg: var(--green);
+  --btn-fg: var(--vanilla);
+  --btn-bg-hover: var(--green-deep);
+  --btn-outline: var(--green);
+  --glass: rgb(251 247 236 / 0.94);
+  --glass-border: var(--beige);
+  --shadow-soft: 0 1px 0 rgb(36 66 58 / 0.04), 0 22px 44px -26px rgb(36 66 58 / 0.32);
+  --shadow-lift: 0 2px 0 rgb(36 66 58 / 0.04), 0 34px 60px -30px rgb(36 66 58 / 0.42);
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --container: 1200px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --header-h: 80px;
+
+  color-scheme: light;
+}
+
+/* Dark mode (optional per guidelines): #15221C background, vanilla text, light-gold accents */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: var(--night);
+    --surface: var(--green-deep);
+    --border: rgb(247 241 225 / 0.14);
+    --text: var(--vanilla);
+    --text-muted: #C2C2B2;
+    --heading: var(--vanilla);
+    --emphasis: var(--gold-light);
+    --label: var(--gold-light);
+    --label-bg: transparent;
+    --decor: var(--gold-light);
+    --logo: var(--vanilla);
+    --btn-bg-hover: var(--green-deep);
+    --btn-outline: var(--vanilla);
+    --glass: rgb(36 66 58 / 0.92);
+    --glass-border: rgb(247 241 225 / 0.16);
+    --shadow-soft: 0 22px 44px -26px rgb(0 0 0 / 0.7);
+    --shadow-lift: 0 34px 60px -30px rgb(0 0 0 / 0.8);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: var(--night);
+  --surface: var(--green-deep);
+  --border: rgb(247 241 225 / 0.14);
+  --text: var(--vanilla);
+  --text-muted: #C2C2B2;
+  --heading: var(--vanilla);
+  --emphasis: var(--gold-light);
+  --label: var(--gold-light);
+  --label-bg: transparent;
+  --decor: var(--gold-light);
+  --logo: var(--vanilla);
+  --btn-bg-hover: var(--green-deep);
+  --btn-outline: var(--vanilla);
+  --glass: rgb(36 66 58 / 0.92);
+  --glass-border: rgb(247 241 225 / 0.16);
+  --shadow-soft: 0 22px 44px -26px rgb(0 0 0 / 0.7);
+  --shadow-lift: 0 34px 60px -30px rgb(0 0 0 / 0.8);
+  color-scheme: dark;
+}
+
+/* Base */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-optical-sizing: auto;
+  color: var(--heading);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+h1 em, h2 em, h3 em {
+  font-style: italic;
+  color: var(--emphasis);
+}
+
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+a { color: var(--emphasis); text-underline-offset: 3px; }
+
+:focus-visible {
+  outline: 2px solid var(--emphasis);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+
+.section { padding-block: clamp(72px, 10vw, 128px); }
+
+/* Labels and pre-headings: Plex Sans 600, 12px, uppercase, +14% tracking, Text Gold */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--label-bg);
+  color: var(--label);
+  font: 600 12px/1 var(--font-sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--decor);
+}
+
+.section-head {
+  display: grid;
+  justify-items: start;
+  gap: 18px;
+  max-width: 42rem;
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+.section-head h2,
+.h2 {
+  font-size: clamp(1.75rem, 1.4rem + 1vw, 2rem);
+  line-height: 1.15;
+}
+.section-head p { color: var(--text-muted); }
+
+.lead {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* Buttons: Plex Sans 600, 15px. Primary green + vanilla, secondary green outline */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  font: 600 15px/1 var(--font-sans);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.btn svg { width: 16px; height: 16px; flex: none; transition: transform 0.2s ease; }
+.btn:hover svg { transform: translateX(2px); }
+.btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+.btn-primary:hover { background: var(--btn-bg-hover); }
+.btn-secondary { border-color: var(--btn-outline); color: var(--btn-outline); background: transparent; }
+.btn-secondary:hover { background: var(--btn-outline); color: var(--bg); }
+.btn-sm { min-height: 42px; padding: 0 18px; font-size: 14px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+/* Small decorative 4-point star, Old Gold */
+.star { color: var(--decor); }
+
+/* Scroll reveal (only when JS is running) */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--delay, 0s);
+}
+.js .reveal.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+}

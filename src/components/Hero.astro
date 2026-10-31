@@ -1,0 +1,591 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+import { getCopy } from '../data/i18n';
+
+const t = getCopy(Astro.currentLocale);
+const r = t.hero.ring;
+
+// Cards orbiting the portrait. Purely decorative (the same ideas are covered in the Method section).
+const ring = [
+  { kind: 'label', icon: 'check', chip: 'green', ...r.evals },
+  { kind: 'trend' },
+  { kind: 'label', icon: 'wave', chip: 'gold', ...r.retrieval },
+  { kind: 'code' },
+  { kind: 'label', icon: 'shield', chip: 'deep', ...r.guardrails },
+  { kind: 'bars' },
+  { kind: 'label', icon: 'trend', chip: 'beige', ...r.observability },
+  { kind: 'metric' },
+] as const;
+---
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-inner" data-hero>
+    <div class="seal" aria-hidden="true">
+      <svg viewBox="0 0 120 120">
+        <defs>
+          <path id="seal-path" d="M60 60m-47 0a47 47 0 1 1 94 0a47 47 0 1 1-94 0" />
+        </defs>
+        <g class="seal-text">
+          <text>
+            <textPath href="#seal-path" textLength="292" lengthAdjust="spacing">{t.hero.seal}</textPath>
+          </text>
+        </g>
+      </svg>
+      <Icon name="star" class="seal-star" />
+    </div>
+
+    <div class="hero-copy">
+      <span class="eyebrow">{t.role}</span>
+      <h1 id="hero-title">
+        <span class="line">{t.hero.titleLine1}</span>
+        <em class="line">{t.hero.titleLine2}</em>
+      </h1>
+      <p class="lead">{t.hero.lead}</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href={site.contact}>
+          {t.hero.ctaPrimary} <Icon name="arrow-right" />
+        </a>
+        <a class="btn btn-secondary btn-dot" href="#work">
+          <span class="dot"><Icon name="arrow-down" /></span> {t.hero.ctaSecondary}
+        </a>
+      </div>
+    </div>
+
+    <aside class="float-card float-left" data-float="left" aria-label={t.hero.cardLeft.label}>
+      <span class="fc-icon"><Icon name="wave" /></span>
+      <p class="fc-title">{t.hero.cardLeft.title}</p>
+      <p class="fc-text">{t.hero.cardLeft.text}</p>
+    </aside>
+
+    <aside class="float-card float-right" data-float="right" aria-label={t.hero.cardRight.label}>
+      <div class="stack-chips" aria-hidden="true">
+        <span>Py</span><span>TS</span><span>SQL</span><span class="plus"><Icon name="plus" /></span>
+      </div>
+      <p class="fc-title">{t.hero.cardRight.title}</p>
+      <p class="fc-text">{t.hero.cardRight.text}</p>
+    </aside>
+
+    <svg class="connectors" aria-hidden="true" data-connectors>
+      <path data-line="left" />
+      <path data-line="right" />
+      <circle data-end="left" r="3" />
+      <circle data-end="right" r="3" />
+    </svg>
+
+    <div class="stage" aria-hidden="true" data-stage>
+      <div class="scene">
+        <div class="portrait">
+          <img src="/portrait-jasper.webp" alt="" width="1200" height="837" fetchpriority="high" decoding="async" />
+        </div>
+        <div class="ring-bounds" data-ring-bounds></div>
+        <div class="ring">
+          {ring.map((card, i) => {
+            if (card.kind === 'label') {
+              return (
+                <div class="rc rc-label" style={`--i:${i}`}>
+                  <span class={`chip chip--${card.chip}`}><Icon name={card.icon} /></span>
+                  <span class="rc-text">
+                    <span class="rc-title">{card.title}</span>
+                    <span class="rc-sub">{card.sub}</span>
+                  </span>
+                </div>
+              );
+            }
+            if (card.kind === 'trend') {
+              return (
+                <div class="rc rc-visual" style={`--i:${i}`}>
+                  <svg viewBox="0 0 108 80" class="spark">
+                    <path class="grid" d="M0 20h108M0 40h108M0 60h108" />
+                    <path class="line" d="M8 70 26 54l22-6 20-18 18-6 14-14" />
+                    <circle cx="26" cy="54" r="3.6" /><circle cx="48" cy="48" r="3.6" /><circle cx="68" cy="30" r="3.6" />
+                    <path class="head" d="m103 4-11 2.5 8 8z" />
+                  </svg>
+                  <span class="rc-sub">{r.trend}</span>
+                </div>
+              );
+            }
+            if (card.kind === 'code') {
+              return (
+                <div class="rc rc-code" style={`--i:${i}`}>
+                  <span><b>$</b> eval run</span>
+                  <span><b>✓</b> grounded .94</span>
+                  <span><b>✓</b> pii leaks 0</span>
+                  <span><b>✓</b> 412 cases</span>
+                </div>
+              );
+            }
+            if (card.kind === 'bars') {
+              return (
+                <div class="rc rc-visual" style={`--i:${i}`}>
+                  <svg viewBox="0 0 108 80" class="bars">
+                    {[22, 38, 56, 64, 48, 34, 24, 16, 10, 6].map((h, j) => (
+                      <rect x={4 + j * 10.4} y={74 - h} width="7" height={h} rx="2" />
+                    ))}
+                    <path class="p95" d="M84 4v74" />
+                  </svg>
+                  <span class="rc-sub">{r.bars}</span>
+                </div>
+              );
+            }
+            return (
+              <div class="rc rc-metric" style={`--i:${i}`}>
+                <span class="big">1.2s</span>
+                <span class="rc-sub">{r.metric}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="note note-left">
+        <span class="rule"></span>
+        <p>{t.hero.noteLeft[0]}<br />{t.hero.noteLeft[1]}</p>
+        <div class="note-chips" aria-hidden="true">
+          <span><Icon name="check" /></span>
+          <span><Icon name="trend" /></span>
+          <span><Icon name="shield" /></span>
+          <span class="plus"><Icon name="plus" /></span>
+        </div>
+      </div>
+      <div class="note note-right">
+        <Icon name="star" class="note-star star" />
+        <div class="note-row">
+          <span class="rule"></span>
+          <p>{t.hero.noteRight[0]}<br />{t.hero.noteRight[1]}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow-x: clip;
+  }
+  .hero-inner {
+    position: relative;
+    padding-top: clamp(20px, 3vw, 32px);
+  }
+
+  /* Copy */
+  .hero-copy {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+    max-width: 780px;
+    margin-inline: auto;
+    text-align: center;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 1.75rem + 2.4vw, 3.5rem); /* 40 to 56px, guideline max 56px */
+    line-height: 1.08;
+  }
+  h1 .line { display: block; }
+  .lead { max-width: 36rem; }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 6px;
+  }
+  .btn-dot { padding-left: 8px; }
+  .btn-dot .dot {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--btn-outline);
+    color: var(--bg);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .btn-dot:hover .dot { background: var(--bg); color: var(--btn-outline); }
+  .btn-dot:hover svg { transform: translateY(2px); }
+
+  /* Rotating seal, top right */
+  .seal {
+    position: absolute;
+    top: 72px;
+    right: 1%;
+    width: 112px;
+    height: 112px;
+    color: var(--heading);
+  }
+  .seal svg { width: 100%; height: 100%; overflow: visible; }
+  .seal-text {
+    transform-origin: 60px 60px;
+    animation: turn 40s linear infinite;
+  }
+  .seal text {
+    fill: currentColor;
+    font: 600 9px var(--font-sans);
+    letter-spacing: 0.14em;
+  }
+  .seal :global(.seal-star) {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 26px;
+    height: 26px;
+    color: var(--decor);
+  }
+
+  /* Floating side cards, tilted toward the centre like the reference */
+  .float-card {
+    position: absolute;
+    z-index: 3;
+    display: grid;
+    justify-items: start;
+    gap: 10px;
+    width: 236px;
+    padding: 22px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    background: var(--glass);
+    box-shadow: var(--shadow-lift);
+  }
+  .float-left {
+    left: 0;
+    top: 214px;
+    transform: perspective(900px) rotateY(14deg) rotateZ(-3deg);
+  }
+  .float-right {
+    right: 0;
+    top: 296px;
+    transform: perspective(900px) rotateY(-14deg) rotateZ(3deg);
+  }
+  .fc-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 6px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--bg);
+    color: var(--emphasis);
+    font-size: 20px;
+  }
+  .fc-title {
+    font: 500 20px/1.2 var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--heading);
+  }
+  .fc-text { font-size: 14px; line-height: 1.5; color: var(--text-muted); }
+
+  .stack-chips { display: flex; margin-bottom: 6px; }
+  .stack-chips span,
+  .note-chips span {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--surface);
+    border-radius: 50%;
+    background: var(--bg);
+    box-shadow: 0 0 0 1px var(--border);
+    color: var(--heading);
+    font: 400 11px/1 var(--font-mono);
+  }
+  .stack-chips span + span,
+  .note-chips span + span { margin-left: -8px; }
+  .stack-chips .plus,
+  .note-chips .plus { background: var(--surface); font-size: 16px; }
+
+  /* Hairline connectors from cards to the ring (drawn by script) */
+  .connectors {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .connectors path { fill: none; stroke: var(--decor); stroke-width: 1; opacity: 0.6; }
+  .connectors circle { fill: var(--decor); }
+
+  /* 3D stage: portrait + orbiting ring of cards */
+  .stage {
+    --s: 1;
+    --scene-h: 480px;
+    --portrait-w: 720px;
+    --ring-top: 200px;
+    --r: 330px;
+    position: relative;
+    height: calc(var(--scene-h) * var(--s));
+    margin-top: 0;
+    perspective: 1300px;
+    perspective-origin: 50% 20%;
+  }
+  .stage::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 1px;
+    background: var(--border);
+  }
+  .scene {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--scene-h);
+    transform: scale(var(--s));
+    transform-origin: 50% 100%;
+    transform-style: preserve-3d;
+  }
+
+  /* Cut-out portrait sitting on the baseline; the ring passes around the head.
+     Kept at z=0 inside the 3D scene so front cards cross over it and back cards hide behind it. */
+  .portrait {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: var(--portrait-w);
+    margin-left: calc(var(--portrait-w) / -2);
+    transform: translateZ(0);
+  }
+  .portrait::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -4%;
+    width: 78%;
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+    background: url('/guilloche.svg') center / contain no-repeat;
+    opacity: 0.45;
+  }
+  .portrait img {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .ring-bounds {
+    position: absolute;
+    left: 50%;
+    top: var(--ring-top);
+    width: calc(var(--r) * 2);
+    height: 120px;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+  }
+
+  .ring {
+    position: absolute;
+    left: 50%;
+    top: var(--ring-top);
+    transform-style: preserve-3d;
+    animation: orbit 64s linear infinite;
+  }
+  .stage.is-paused .ring { animation-play-state: paused; }
+
+  @keyframes orbit {
+    from { transform: rotateZ(-5deg) rotateX(-12deg) rotateY(0deg); }
+    to { transform: rotateZ(-5deg) rotateX(-12deg) rotateY(-360deg); }
+  }
+  @keyframes turn { to { transform: rotate(360deg); } }
+
+  .rc {
+    --w: 196px;
+    --h: 90px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--w);
+    height: var(--h);
+    margin: calc(var(--h) / -2) 0 0 calc(var(--w) / -2);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    background: var(--glass);
+    box-shadow: var(--shadow-soft);
+    transform: rotateY(calc(var(--i) * 45deg)) translateZ(var(--r));
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .rc-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+  }
+  .chip {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    font-size: 18px;
+  }
+  .chip--green { background: var(--green); color: var(--vanilla); }
+  .chip--gold { background: var(--gold-old); color: var(--vanilla); }
+  .chip--deep { background: var(--green-deep); color: var(--gold-light); box-shadow: inset 0 0 0 1px rgb(247 241 225 / 0.12); }
+  .chip--beige { background: var(--beige); color: var(--green-deep); }
+  .rc-text { display: grid; gap: 2px; }
+  .rc-title {
+    font: 500 19px/1.15 var(--font-display);
+    color: var(--heading);
+  }
+  .rc-sub {
+    font: 400 11px/1.3 var(--font-mono);
+    color: var(--text-muted);
+  }
+
+  .rc-visual {
+    --w: 150px;
+    --h: 156px;
+    display: grid;
+    align-content: space-between;
+    padding: 14px;
+  }
+  .spark .grid { stroke: var(--border); stroke-width: 1; }
+  .spark .line { fill: none; stroke: var(--emphasis); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .spark circle,
+  .spark .head { fill: var(--emphasis); }
+  .bars rect { fill: var(--emphasis); opacity: 0.85; }
+  .bars .p95 { stroke: var(--decor); stroke-width: 1.4; stroke-dasharray: 3 3; }
+
+  .rc-code {
+    --w: 168px;
+    --h: 120px;
+    display: grid;
+    align-content: center;
+    gap: 3px;
+    padding: 0 16px;
+    border-color: rgb(247 241 225 / 0.12);
+    background: var(--green-deep);
+    color: var(--vanilla);
+    font: 400 12px/1.5 var(--font-mono);
+    white-space: nowrap;
+  }
+  .rc-code b { font-weight: 400; color: var(--gold-light); }
+
+  .rc-metric {
+    --w: 156px;
+    --h: 112px;
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: 2px;
+    padding: 0 18px;
+  }
+  .rc-metric .big {
+    font: 500 36px/1 var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--label);
+  }
+
+  /* Bottom corner notes */
+  .notes {
+    position: absolute;
+    inset: auto 0 28px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    pointer-events: none;
+  }
+  .note {
+    display: grid;
+    gap: 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    pointer-events: auto;
+  }
+  .note-right { justify-items: start; padding-bottom: 28px; }
+  .rule { display: block; width: 28px; height: 1px; background: var(--decor); }
+  .note-row { display: flex; align-items: center; gap: 14px; }
+  .note-chips { display: flex; }
+  .note-chips span { font-size: 15px; color: var(--emphasis); }
+  .note :global(.note-star) { width: 22px; height: 22px; margin-left: 40px; }
+
+  /* Tablet: drop the side cards, keep the composition centred */
+  @media (max-width: 1080px) {
+    .float-card,
+    .connectors,
+    .seal { display: none; }
+    .stage { --s: 0.86; }
+    .notes {
+      position: static;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding-block: 32px 8px;
+    }
+    .note-right { justify-items: end; text-align: right; padding-bottom: 0; }
+    .note-right .note-row { flex-direction: row-reverse; }
+    .note :global(.note-star) { margin: 0 40px 0 0; }
+  }
+
+  @media (max-width: 640px) {
+    .stage { --s: 0.58; margin-top: 8px; }
+    .cta-row { width: 100%; }
+    .cta-row .btn { flex: 1 1 100%; }
+    .notes { grid-template-columns: 1fr; }
+    .note-right { justify-items: start; text-align: left; }
+    .note-right .note-row { flex-direction: row; }
+    .note :global(.note-star) { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ring {
+      animation: none;
+      transform: rotateZ(-5deg) rotateX(-12deg) rotateY(-22.5deg);
+    }
+    .seal-text { animation: none; }
+  }
+</style>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  const stage = hero?.querySelector<HTMLElement>('[data-stage]');
+  const svg = hero?.querySelector<SVGSVGElement>('[data-connectors]');
+  const bounds = hero?.querySelector<HTMLElement>('[data-ring-bounds]');
+
+  // Draw hairlines from the bottom of each side card to the edge of the ring
+  function drawConnectors() {
+    if (!hero || !svg || !bounds || getComputedStyle(svg).display === 'none') return;
+    const h = hero.getBoundingClientRect();
+    const ring = bounds.getBoundingClientRect();
+    const cy = ring.top + ring.height / 2 - h.top;
+    const cx = ring.left + ring.width / 2 - h.left;
+    const reach = (ring.width / 2) * 0.82;
+
+    (['left', 'right'] as const).forEach((side) => {
+      const card = hero.querySelector<HTMLElement>(`[data-float="${side}"]`);
+      const path = svg.querySelector<SVGPathElement>(`[data-line="${side}"]`);
+      const end = svg.querySelector<SVGCircleElement>(`[data-end="${side}"]`);
+      if (!card || !path || !end) return;
+      const c = card.getBoundingClientRect();
+      const dir = side === 'left' ? 1 : -1;
+      const sx = (side === 'left' ? c.left + c.width * 0.42 : c.right - c.width * 0.42) - h.left;
+      const sy = c.bottom - h.top - 4;
+      const ex = cx - dir * reach;
+      const ey = cy + 26;
+      path.setAttribute('d', `M ${sx} ${sy} C ${sx} ${sy + (ey - sy) * 0.85}, ${ex - dir * 110} ${ey}, ${ex} ${ey}`);
+      end.setAttribute('cx', String(ex));
+      end.setAttribute('cy', String(ey));
+    });
+  }
+
+  if (hero) {
+    new ResizeObserver(drawConnectors).observe(hero);
+    document.fonts?.ready.then(drawConnectors);
+    drawConnectors();
+  }
+
+  // Pause the orbit while the hero is off screen
+  if (stage) {
+    new IntersectionObserver(([entry]) => stage.classList.toggle('is-paused', !entry.isIntersecting)).observe(stage);
+  }
+</script>

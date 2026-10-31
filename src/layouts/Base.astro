@@ -1,0 +1,74 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+import { languages, defaultLang, getLang, getCopy, homePath, type Lang } from '../data/i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  // Paths of this page in each language; defaults to the home pages
+  alternates?: Record<Lang, string>;
+  // Extra structured data for this page
+  jsonLd?: object;
+}
+
+const { title, description, alternates, jsonLd } = Astro.props;
+const altPath = (l: Lang) => alternates?.[l] ?? homePath(l);
+const lang = getLang(Astro.currentLocale);
+const t = getCopy(lang);
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${site.url}/#person`,
+  name: site.name,
+  jobTitle: t.role,
+  url: site.url,
+  sameAs: [site.linkedin, site.github],
+};
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {(Object.keys(languages) as Lang[]).map((l) => (
+      <link rel="alternate" hreflang={l} href={new URL(altPath(l), Astro.site)} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL(altPath(defaultLang), Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#F7F1E1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#15221C" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;600&display=swap"
+    />
+
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+          var t = localStorage.getItem('jvpl-theme');
+          if (t === 'dark' || t === 'light') d.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.a11y.skip}</a>
+    <slot />
+  </body>
+</html>

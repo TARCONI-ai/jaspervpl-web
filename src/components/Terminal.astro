@@ -1,0 +1,255 @@
+---
+import Icon from './Icon.astro';
+import { getCopy } from '../data/i18n';
+
+const t = getCopy(Astro.currentLocale);
+
+// The code samples stay in English in every language. Each line: [text, class]. Classes: p = prompt, ok = pass, no = fail, dim = muted, k = keyword.
+type Seg = [string, string?];
+const tabs: { id: string; label: string; lines: Seg[][] }[] = [
+  {
+    id: 'eval',
+    label: 'eval.log',
+    lines: [
+      [['$ ', 'p'], ['jvpl eval run --suite support-copilot --baseline main']],
+      [['  loading 412 cases · 4 gates', 'dim']],
+      [],
+      [['  ✓ ', 'ok'], ['groundedness        0.94   '], ['≥ 0.90', 'dim']],
+      [['  ✓ ', 'ok'], ['answer_relevance    0.91   '], ['≥ 0.85', 'dim']],
+      [['  ✓ ', 'ok'], ['pii_leakage         0.00   '], ['= 0.00', 'dim']],
+      [['  ✗ ', 'no'], ['latency_p95         2.8s   '], ['≤ 2.5s', 'dim']],
+      [],
+      [['  3/4 gates passed · deploy blocked', 'k']],
+      [['  # next: cache retrieval, trim context to 6 chunks', 'dim']],
+    ],
+  },
+  {
+    id: 'prompt',
+    label: 'prompt.md',
+    lines: [
+      [['# system · support-copilot v14', 'k']],
+      [['You answer questions about the customer\'s account']],
+      [['using only the documents in '], ['<context>', 'p'], ['.']],
+      [],
+      [['## Rules', 'k']],
+      [['- Cite a source id for every claim: '], ['[doc:142]', 'p']],
+      [['- If the answer is not in '], ['<context>', 'p'], [', say so and']],
+      [['  offer a handoff to a person.']],
+      [['- Never reveal internal notes or personal data.']],
+    ],
+  },
+  {
+    id: 'guard',
+    label: 'guard.py',
+    lines: [
+      [['@guard', 'p'], ['(stage='], ['"output"', 'dim'], [')']],
+      [['def ', 'k'], ['no_unsupported_claims(answer, context):']],
+      [['    claims = extract_claims(answer)']],
+      [['    unsupported = [c '], ['for ', 'k'], ['c '], ['in ', 'k'], ['claims']],
+      [['                   '], ['if not ', 'k'], ['entails(context, c)]']],
+      [['    '], ['if ', 'k'], ['unsupported:']],
+      [['        '], ['return ', 'k'], ['Retry(reason='], ['"unsupported"', 'dim'], [', items=unsupported)']],
+      [['    '], ['return ', 'k'], ['Pass()']],
+    ],
+  },
+];
+---
+<section class="section lab" id="lab" aria-labelledby="lab-title">
+  <div class="container lab-grid">
+    <div class="copy reveal">
+      <span class="eyebrow">{t.lab.eyebrow}</span>
+      <h2 id="lab-title" class="h2">{t.lab.titleBefore}<em>{t.lab.titleEm}</em>{t.lab.titleAfter}</h2>
+      <p>{t.lab.intro}</p>
+      <ul class="points">
+        {t.lab.points.map((point) => <li>{point}</li>)}
+      </ul>
+    </div>
+
+    <div class="terminal reveal" style="--delay:0.1s" data-terminal data-copied={t.lab.copied} data-select={t.lab.selectToCopy}>
+      <div class="term-bar">
+        <div class="tabs" role="tablist" aria-label={t.lab.tabsLabel}>
+          {tabs.map((t, i) => (
+            <button
+              type="button"
+              role="tab"
+              id={`tab-${t.id}`}
+              aria-controls={`panel-${t.id}`}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              tabindex={i === 0 ? 0 : -1}
+            >{t.label}</button>
+          ))}
+        </div>
+        <button class="copy-btn" type="button" data-copy>
+          <Icon name="copy" /><span data-copy-label>{t.lab.copy}</span>
+        </button>
+      </div>
+      {tabs.map((t, i) => (
+        <pre
+          class="panel"
+          role="tabpanel"
+          id={`panel-${t.id}`}
+          aria-labelledby={`tab-${t.id}`}
+          tabindex="0"
+          hidden={i !== 0}
+        ><code>{t.lines.map((line, j) => (
+          <span class="ln" style={`--n:${j}`}>{line.map(([text, cls]) => cls ? <span class={cls}>{text}</span> : text)}</span>
+        ))}</code></pre>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .lab-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    align-items: center;
+    gap: clamp(32px, 6vw, 80px);
+  }
+  .copy { display: grid; justify-items: start; gap: 18px; }
+  .copy > p { color: var(--text-muted); }
+  .points { display: grid; gap: 10px; margin-top: 4px; }
+  .points li { display: flex; align-items: baseline; gap: 12px; }
+  .points li::before {
+    content: "";
+    flex: none;
+    width: 7px;
+    height: 7px;
+    background: var(--decor);
+    transform: translateY(-2px) rotate(45deg);
+  }
+
+  /* Code blocks: IBM Plex Mono 400, vanilla on deep green. Accents: Light Gold (4.89:1), Beige (7.9:1) */
+  .terminal {
+    overflow: hidden;
+    border: 1px solid rgb(247 241 225 / 0.1);
+    border-radius: var(--radius-lg);
+    background: var(--green-deep);
+    color: var(--vanilla);
+    box-shadow: var(--shadow-lift);
+  }
+  .term-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px 0 18px;
+    border-bottom: 1px solid rgb(247 241 225 / 0.12);
+  }
+  .tabs { display: flex; gap: 4px; overflow-x: auto; }
+  .tabs button {
+    padding: 12px 12px 14px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: var(--beige);
+    font: 400 13px/1 var(--font-mono);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .tabs button[aria-selected='true'] { color: var(--vanilla); border-bottom-color: var(--gold-light); }
+  .tabs button:hover { color: var(--vanilla); }
+  .tabs button:focus-visible,
+  .copy-btn:focus-visible,
+  .panel:focus-visible { outline-color: var(--gold-light); }
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border: 1px solid rgb(247 241 225 / 0.2);
+    border-radius: 999px;
+    background: none;
+    color: var(--vanilla);
+    font: 600 13px/1 var(--font-sans);
+    cursor: pointer;
+  }
+  .copy-btn:hover { border-color: var(--gold-light); }
+
+  .panel {
+    min-height: 330px;
+    margin: 0;
+    padding: 24px 24px 28px;
+    overflow-x: auto;
+    font: 400 14px/1.75 var(--font-mono);
+    tab-size: 4;
+  }
+  .panel code { font: inherit; }
+  .ln { display: block; white-space: pre; }
+  .ln:empty::before { content: " "; }
+  .p { color: var(--gold-light); }
+  .k { color: var(--gold-light); }
+  .ok { color: var(--gold-light); }
+  .no { color: var(--vanilla); text-decoration: underline wavy var(--gold-light) 1px; text-underline-offset: 4px; }
+  .dim { color: var(--beige); }
+
+  /* Lines print in sequence the first time the block is seen */
+  :global(.js) .terminal:not(.is-played) .panel:not([hidden]) .ln { opacity: 0; }
+  .terminal.is-playing .ln {
+    animation: print 0.35s ease both;
+    animation-delay: calc(var(--n) * 0.12s);
+  }
+  @keyframes print { from { opacity: 0; transform: translateX(-4px); } to { opacity: 1; transform: none; } }
+
+  @media (max-width: 900px) {
+    .lab-grid { grid-template-columns: 1fr; }
+    .panel { font-size: 13px; min-height: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .terminal:not(.is-played) .panel:not([hidden]) .ln { opacity: 1; }
+    .terminal.is-playing .ln { animation: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-terminal]').forEach((term) => {
+    const tabs = [...term.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = [...term.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+
+    const select = (i: number, focus = false) => {
+      tabs.forEach((t, j) => {
+        t.setAttribute('aria-selected', String(i === j));
+        t.tabIndex = i === j ? 0 : -1;
+      });
+      panels.forEach((p, j) => (p.hidden = i !== j));
+      if (focus) tabs[i].focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i));
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') select((i + 1) % tabs.length, true);
+        if (e.key === 'ArrowLeft') select((i - 1 + tabs.length) % tabs.length, true);
+      });
+    });
+
+    // Copy the visible panel
+    const copyBtn = term.querySelector<HTMLButtonElement>('[data-copy]');
+    const label = term.querySelector<HTMLElement>('[data-copy-label]');
+    copyBtn?.addEventListener('click', async () => {
+      const panel = panels.find((p) => !p.hidden);
+      if (!panel || !label) return;
+      const idle = label.textContent;
+      try {
+        await navigator.clipboard.writeText(panel.innerText.trimEnd());
+        label.textContent = term.dataset.copied!;
+      } catch {
+        label.textContent = term.dataset.select!;
+      }
+      setTimeout(() => (label.textContent = idle), 1800);
+    });
+
+    // Print the first panel line by line once it scrolls into view
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        term.classList.add('is-playing');
+        setTimeout(() => term.classList.add('is-played'), 2400);
+        io.disconnect();
+      },
+      { threshold: 0.35 },
+    );
+    io.observe(term);
+  });
+</script>

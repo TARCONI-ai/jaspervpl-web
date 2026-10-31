@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+
+# Local only: Claude settings and the brand instructions (they mention private topics; the repo is public)
+.claude/settings.local.json
+CLAUDE.md

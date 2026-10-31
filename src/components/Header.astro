@@ -1,0 +1,307 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { nav } from '../data/site';
+import { languages, getLang, getCopy, homePath, type Lang } from '../data/i18n';
+
+const lang = getLang(Astro.currentLocale);
+const t = getCopy(lang);
+const langs = Object.keys(languages) as Lang[];
+
+interface Props {
+  // Paths of the current page in each language; defaults to the home pages
+  alternates?: Record<Lang, string>;
+}
+const { alternates } = Astro.props;
+const altPath = (l: Lang) => alternates?.[l] ?? homePath(l);
+// Section links are hashes on the home page and full paths elsewhere
+const home = homePath(lang);
+const base = Astro.url.pathname === home ? '' : home;
+---
+<header class="site-header" data-header>
+  <div class="container bar">
+    <a class="brand" href={homePath(lang)} aria-label={t.a11y.home}>
+      <Logo variant="lockup" class="brand-logo" />
+    </a>
+
+    <nav class="nav-pill" aria-label={t.a11y.primaryNav}>
+      <ul>
+        {nav.map((id) => (
+          <li><a href={`${base}#${id}`} data-spy={id}>{t.nav[id]}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <nav class="lang-switch" aria-label={t.a11y.language}>
+        {langs.map((l) => (
+          <a
+            href={altPath(l)}
+            hreflang={l}
+            lang={l}
+            title={languages[l]}
+            aria-label={languages[l]}
+            aria-current={l === lang ? 'page' : undefined}
+          >{l.toUpperCase()}</a>
+        ))}
+      </nav>
+      <button
+        class="icon-btn theme-toggle"
+        type="button"
+        data-theme-toggle
+        data-label-dark={t.a11y.toDark}
+        data-label-light={t.a11y.toLight}
+        aria-label={t.a11y.toDark}
+      >
+        <Icon name="moon" class="i-moon" />
+        <Icon name="sun" class="i-sun" />
+      </button>
+      <a class="btn btn-primary btn-sm cta" href={`${base}#contact`}>
+        {t.bookCall} <Icon name="arrow-down" />
+      </a>
+      <button
+        class="icon-btn menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label={t.a11y.openMenu}
+        data-label-open={t.a11y.openMenu}
+        data-label-close={t.a11y.closeMenu}
+        data-menu-toggle
+      >
+        <Icon name="menu" class="i-menu" />
+        <Icon name="close" class="i-close" />
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <ul class="container">
+      {nav.map((id) => (
+        <li><a href={`${base}#${id}`}>{t.nav[id]}</a></li>
+      ))}
+      <li class="mobile-langs">
+        {langs.map((l) => (
+          <a href={altPath(l)} hreflang={l} lang={l} aria-current={l === lang ? 'page' : undefined}>{languages[l]}</a>
+        ))}
+      </li>
+      <li><a href={`${base}#contact`}>{t.bookCall}</a></li>
+    </ul>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+  .site-header.is-scrolled {
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom-color: var(--border);
+  }
+
+  .bar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    height: var(--header-h);
+  }
+
+  .brand { display: inline-flex; justify-self: start; border-radius: 8px; }
+  .brand :global(.brand-logo) { width: 138px; }
+
+  .nav-pill ul {
+    display: flex;
+    gap: 2px;
+    padding: 4px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+  }
+  .nav-pill a {
+    display: block;
+    padding: 9px 18px;
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+  }
+  .nav-pill a:hover { color: var(--emphasis); }
+  .nav-pill a.is-active {
+    background: var(--bg);
+    color: var(--heading);
+    box-shadow: 0 1px 0 rgb(36 66 58 / 0.06), 0 6px 14px -8px rgb(36 66 58 / 0.35);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  /* Language switcher: same pill language as the main nav */
+  .lang-switch {
+    display: flex;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+  }
+  .lang-switch a {
+    display: grid;
+    place-items: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 8px;
+    border-radius: 999px;
+    color: var(--text-muted);
+    font: 600 12px/1 var(--font-sans);
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  .lang-switch a:hover { color: var(--emphasis); }
+  .lang-switch a[aria-current='page'] {
+    background: var(--bg);
+    color: var(--heading);
+    box-shadow: 0 1px 0 rgb(36 66 58 / 0.06), 0 6px 14px -8px rgb(36 66 58 / 0.35);
+  }
+
+  .cta:hover :global(svg) { transform: translateY(2px); }
+
+  .icon-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--heading);
+    font-size: 18px;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+  .icon-btn:hover { border-color: var(--emphasis); }
+
+  .theme-toggle :global(.i-sun),
+  .theme-toggle[data-state='dark'] :global(.i-moon) { display: none; }
+  .theme-toggle[data-state='dark'] :global(.i-sun) { display: block; }
+
+  .menu-toggle { display: none; }
+  .menu-toggle :global(.i-close),
+  .menu-toggle[aria-expanded='true'] :global(.i-menu) { display: none; }
+  .menu-toggle[aria-expanded='true'] :global(.i-close) { display: block; }
+
+  .mobile-menu {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .mobile-menu ul { display: grid; padding-block: 8px 16px; }
+  .mobile-menu a {
+    display: block;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--heading);
+    font: 500 22px/1.2 var(--font-display);
+    text-decoration: none;
+  }
+  .mobile-menu li:last-child a { border-bottom: 0; color: var(--emphasis); font-style: italic; }
+  .mobile-menu .mobile-langs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu .mobile-langs a {
+    padding: 0;
+    border: 0;
+    color: var(--text-muted);
+    font: 400 16px/1.4 var(--font-sans);
+  }
+  .mobile-menu .mobile-langs a[aria-current='page'] { color: var(--heading); font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .bar { grid-template-columns: 1fr auto; }
+    .nav-pill { display: none; }
+    .menu-toggle { display: inline-grid; }
+  }
+  @media (max-width: 520px) {
+    .cta,
+    .lang-switch { display: none; }
+    .brand :global(.brand-logo) { width: 112px; }
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const header = document.querySelector<HTMLElement>('[data-header]');
+
+  // Theme: explicit choice wins, otherwise follow the OS
+  const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  const current = () => (root.dataset.theme as 'light' | 'dark' | undefined) ?? (mq.matches ? 'dark' : 'light');
+  const syncTheme = () => {
+    if (!toggle) return;
+    const t = current();
+    toggle.dataset.state = t;
+    toggle.setAttribute('aria-label', (t === 'dark' ? toggle.dataset.labelLight : toggle.dataset.labelDark)!);
+  };
+  toggle?.addEventListener('click', () => {
+    const next = current() === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try { localStorage.setItem('jvpl-theme', next); } catch {}
+    syncTheme();
+  });
+  mq.addEventListener('change', syncTheme);
+  syncTheme();
+
+  // Header surface once the page scrolls
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile menu
+  const menuBtn = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.getElementById('mobile-menu');
+  const setMenu = (open: boolean) => {
+    menuBtn?.setAttribute('aria-expanded', String(open));
+    menuBtn?.setAttribute('aria-label', (open ? menuBtn.dataset.labelClose : menuBtn.dataset.labelOpen)!);
+    if (menu) menu.hidden = !open;
+  };
+  menuBtn?.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+  menu?.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) setMenu(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+  // Scroll spy for the pill navigation
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-spy]')];
+  const sections = links
+    .map((a) => document.getElementById(a.dataset.spy!))
+    .filter((s): s is HTMLElement => !!s);
+  const spy = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((a) => {
+          const on = a.dataset.spy === entry.target.id;
+          a.classList.toggle('is-active', on);
+          if (on) a.setAttribute('aria-current', 'true');
+          else a.removeAttribute('aria-current');
+        });
+      });
+    },
+    { rootMargin: '-45% 0px -50% 0px' },
+  );
+  sections.forEach((s) => spy.observe(s));
+</script>

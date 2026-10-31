@@ -1,0 +1,201 @@
+---
+import Icon from './Icon.astro';
+import { projects } from '../data/site';
+import { getCopy } from '../data/i18n';
+
+const t = getCopy(Astro.currentLocale);
+const featured = projects.find((p) => p.featured) ?? projects[0];
+const rest = projects.filter((p) => p !== featured);
+const ordered = [featured, ...rest];
+---
+<section class="section work" id="work" aria-labelledby="work-title">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="eyebrow">{t.work.eyebrow}</span>
+      <h2 id="work-title">{t.work.title}<em>{t.work.titleEm}</em></h2>
+      <p>{t.work.intro}</p>
+    </header>
+
+    <div class="grid">
+      {ordered.map((p, i) => (
+        <article class:list={['card', 'project', 'reveal', { 'is-featured': p === featured }]} style={`--delay:${i * 0.08}s`}>
+          <div class="visual" aria-hidden="true">
+            {p.visual === 'evals' && (
+              <svg viewBox="0 0 520 240" class="v-evals">
+                <path class="v-grid" d="M40 40h460M40 90h460M40 140h460M40 190h460" />
+                <path class="v-gate" d="M40 70h460" />
+                <text x="44" y="62" class="v-label">gate 0.90</text>
+                <path class="v-line" d="M60 196 L130 172 L200 160 L270 118 L340 98 L410 76 L480 58" />
+                {[[60,196],[130,172],[200,160],[270,118],[340,98],[410,76]].map(([x, y]) => <circle cx={x} cy={y} r="5" class="v-dot" />)}
+                <circle cx="480" cy="58" r="8" class="v-dot v-dot--last" />
+                {['v1','v2','v3','v4','v5','v6','v7'].map((v, j) => <text x={60 + j * 70} y="228" text-anchor="middle" class="v-label">{v}</text>)}
+              </svg>
+            )}
+            {p.visual === 'prompt' && (
+              <svg viewBox="58 10 244 190" class="v-prompt">
+                <rect x="70" y="22" width="220" height="166" rx="14" class="v-doc" />
+                <text x="92" y="52" class="v-doc-head">GPT · AIO writer</text>
+                {[78, 96, 114, 140, 158].map((y, j) => <rect x="92" y={y} width={[176, 150, 164, 120, 140][j]} height="6" rx="3" class="v-doc-line" />)}
+                <rect x="92" y="132" width="6" height="32" rx="3" class="v-doc-accent" />
+              </svg>
+            )}
+            {p.visual === 'pipeline' && (
+              <svg viewBox="0 0 200 224" class="v-pipe">
+                <path class="v-arrow" d="M100 42v18M100 94v18M100 146v12M100 158 50 182M100 158l50 24" />
+                {[[8,'PDF'],[60,'extract'],[112,'validate']].map(([y, t]) => (
+                  <g><rect x="56" y={y as number} width="88" height="34" rx="10" class="v-node" /><text x="100" y={(y as number) + 22} text-anchor="middle" class="v-label">{t}</text></g>
+                ))}
+                <rect x="10" y="182" width="80" height="34" rx="10" class="v-node v-node--ok" /><text x="50" y="204" text-anchor="middle" class="v-label v-label--on">auto</text>
+                <rect x="110" y="182" width="80" height="34" rx="10" class="v-node" /><text x="150" y="204" text-anchor="middle" class="v-label">review</text>
+              </svg>
+            )}
+          </div>
+
+          <div class="body">
+            <div class="meta">
+              <ul class="tags">{t.work.projects[p.slug].tags.map((tag) => <li>{tag}</li>)}</ul>
+              {p.sample && <span class="sample" title={t.work.sampleTitle}>{t.work.sample}</span>}
+            </div>
+            <h3>{t.work.projects[p.slug].title}</h3>
+            <p class="summary">{t.work.projects[p.slug].summary}</p>
+            {p.metrics && (
+              <dl class="metrics">
+                {p.metrics.map((value, j) => (
+                  <div><dt>{t.work.projects[p.slug].metrics[j]}</dt><dd>{value}</dd></div>
+                ))}
+              </dl>
+            )}
+            {p.href && (
+              <a class="more" href={p.href}>{t.work.projects[p.slug].linkLabel || t.work.readMore} <Icon name="arrow-right" /></a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+  }
+  .project {
+    display: grid;
+    grid-template-columns: 184px 1fr;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .project:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+  .project.is-featured {
+    grid-row: span 2;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  .visual {
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    border-right: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .is-featured .visual {
+    padding: 28px 28px 18px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .visual svg { width: 100%; height: auto; max-height: 220px; }
+  .is-featured .visual svg { max-height: none; }
+
+  .body {
+    display: grid;
+    align-content: start;
+    gap: 14px;
+    padding: 26px 26px 24px;
+  }
+  .is-featured .body { padding: 30px 32px 32px; }
+  .meta { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags li {
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-muted);
+    font: 400 12px/1.4 var(--font-mono);
+  }
+  .sample {
+    flex: none;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--label-bg);
+    border: 1px dashed var(--decor);
+    color: var(--label);
+    font: 600 11px/1.4 var(--font-sans);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  h3 { font-size: 24px; line-height: 1.2; }
+  .is-featured h3 { font-size: 30px; }
+  .summary { color: var(--text-muted); }
+
+  .metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 36px;
+    margin: 6px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+  }
+  .metrics div { display: flex; flex-direction: column-reverse; gap: 4px; }
+  .metrics dd {
+    margin: 0;
+    font: 500 34px/1 var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--emphasis);
+  }
+  .metrics dt { font-size: 13px; color: var(--text-muted); }
+
+  .more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-self: start;
+    margin-top: 4px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .more :global(svg) { transition: transform 0.2s ease; }
+  .more:hover :global(svg) { transform: translateX(3px); }
+  .more:hover { text-decoration: underline; }
+
+  /* Visual tokens */
+  .v-grid { stroke: var(--border); stroke-width: 1; }
+  .v-gate { stroke: var(--decor); stroke-width: 1.4; stroke-dasharray: 5 5; }
+  .v-line { fill: none; stroke: var(--emphasis); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+  .v-dot { fill: var(--surface); stroke: var(--emphasis); stroke-width: 2.5; }
+  .v-dot--last { fill: var(--emphasis); }
+  .v-label { fill: var(--text-muted); font: 400 12px var(--font-mono); }
+  .v-label--on { fill: var(--vanilla); }
+  .v-doc { fill: var(--green-deep); }
+  .v-doc-head { fill: var(--gold-light); font: 400 12px var(--font-mono); }
+  .v-doc-line { fill: var(--vanilla); opacity: 0.55; }
+  .v-doc-accent { fill: var(--gold-light); }
+  .v-node { fill: var(--surface); stroke: var(--border); stroke-width: 1.2; }
+  .v-node--ok { fill: var(--green); stroke: var(--green); }
+  .v-arrow { fill: none; stroke: var(--decor); stroke-width: 1.4; stroke-linecap: round; }
+
+  @media (max-width: 1080px) {
+    .grid { grid-template-columns: 1fr; }
+    .project.is-featured { grid-row: auto; }
+  }
+  @media (max-width: 640px) {
+    .project { grid-template-columns: 1fr; }
+    .visual { border-right: 0; border-bottom: 1px solid var(--border); }
+    .visual svg { max-width: 260px; max-height: 180px; }
+    .is-featured h3 { font-size: 26px; }
+  }
+</style>

@@ -1,0 +1,28 @@
+---
+import { MARK, LOCKUP } from './logo-paths';
+
+interface Props {
+  variant?: 'lockup' | 'mark';
+  class?: string;
+  label?: string; // omit when the parent link already has an accessible name
+}
+
+const { variant = 'lockup', class: className, label } = Astro.props;
+const glyph = variant === 'mark' ? MARK : LOCKUP;
+---
+<svg
+  class:list={['logo', `logo--${variant}`, className]}
+  viewBox={glyph.viewBox}
+  xmlns="http://www.w3.org/2000/svg"
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  focusable="false"
+>
+  <path fill="currentColor" fill-rule="evenodd" d={glyph.d} />
+</svg>
+
+<style>
+  /* Brand rule: only green, vanilla or inverted. No shadows, gradients or effects. */
+  .logo { color: var(--logo); height: auto; }
+</style>

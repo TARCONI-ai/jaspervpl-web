@@ -1,0 +1,45 @@
+---
+import { stack } from '../data/site';
+import { getCopy } from '../data/i18n';
+
+const t = getCopy(Astro.currentLocale);
+---
+<section class="stack" aria-labelledby="stack-title">
+  <div class="container stack-inner">
+    <h2 id="stack-title" class="eyebrow">{t.stack.title}</h2>
+    <ul class="stack-list">
+      {stack.map((tool) => <li>{tool}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .stack { border-bottom: 1px solid var(--border); }
+  .stack-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px 40px;
+    padding-block: 28px;
+  }
+  h2.eyebrow { flex: none; font-family: var(--font-sans); letter-spacing: 0.14em; }
+  .stack-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 22px;
+    color: var(--text-muted);
+    font: 400 14px/1.4 var(--font-mono);
+  }
+  .stack-list li { display: inline-flex; align-items: center; }
+  .stack-list li::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    margin-right: 10px;
+    background: var(--decor);
+    transform: rotate(45deg);
+  }
+  @media (max-width: 900px) {
+    .stack-inner { flex-direction: column; align-items: flex-start; }
+  }
+</style>
