@@ -1,109 +1,91 @@
 ---
-title: "¿Qué es el Model Context Protocol (MCP)?"
+title: "¿Qué es el Model Context Protocol (MCP) y cuándo merece la pena usarlo?"
 date: 2025-07-07
+updated: 2026-10-31
 lang: es
 slug: "que-es-el-model-context-protocol-mcp"
 categories: ["noticias"]
 translationKey: "que-es-el-model-context-protocol-mcp"
 cover: "./images/20250707_1616_Robot-futuriste-MCP_simple_compose_01jzjkvtymfg6txzckh10gy0pk.png"
+coverAiGenerated: true
 permalink: "/blog/noticias/que-es-el-model-context-protocol-mcp/"
 section: ai
-draft: true
+description: "Qué es el Model Context Protocol (MCP), cómo funciona, en qué se diferencia de una API y cuándo no hace falta, con ejemplos reales de uso."
+draft: false
 ---
 
-El Model Context Protocol (MCP) es un estándar abierto que permite compartir de forma clara y eficiente el contexto de datos entre sistemas y modelos de inteligencia artificial, mejorando la integración, precisión y consistencia de los procesos IA.
+El Model Context Protocol (MCP) es un estándar abierto que define cómo una aplicación de IA, como Claude o ChatGPT, se conecta con herramientas y datos externos: tu correo, tu calendario, un repositorio o una base de datos. Lo publicó Anthropic en noviembre de 2024 y desde diciembre de 2025 lo gestiona la Agentic AI Foundation, dentro de la Linux Foundation. Si has conectado Gmail o Google Drive a Claude, ya lo usas.
 
-## ¿Por qué existe el MCP?
+Este artículo es para ti si trabajas con LLM y dudas entre conectar tus herramientas por MCP o programar la integración a mano. Al terminar sabrás qué opción te conviene en cada caso.
 
-El MCP surge para resolver un problema clave: la **falta de un formato común** para compartir el contexto entre modelos IA y sistemas de datos. Sin un protocolo estandarizado, los equipos enfrentan errores, duplicación de esfuerzo y dificultades al escalar. MCP unifica ese intercambio, mejorando la colaboración entre desarrolladores, científicos de datos y sistemas.
+*Publiqué la primera versión en julio de 2025. La he reescrito por completo en octubre de 2026, con lo que he aprendido al usarlo.*
 
-## ¿Cómo funciona el MCP?
+## ¿Qué problema resuelve el MCP?
 
-1. **Definición del contexto**  
-    Se crea un paquete estándar (en JSON o Protobuf) que incluye metadatos, variables, orígenes y rangos de valores.
-    
-2. **Intercambio estructurado**  
-    El contexto se transmite de manera formal y legible por máquinas, garantizando compatibilidad.
-    
-3. **Validación automática**  
-    Cada receptor verifica formato y coherencia antes de usar los datos, evitando errores de interpretación.
-    
-4. **Integración fluida**  
-    Los modelos IA consumen el contexto sin necesidad de ajustes manuales.
-    
+Resuelve que cada aplicación de IA necesitaba una integración propia para cada herramienta. Si querías que tres asistentes leyeran tu calendario, alguien tenía que programar tres conectores distintos. Con el MCP, una herramienta publica un servidor una sola vez y cualquier aplicación compatible puede usarlo.
 
-## ¿Cuáles son sus ventajas principales?
+La propia especificación se inspira en el Language Server Protocol, el estándar que hizo lo mismo con los lenguajes de programación en los editores de código.
 
-- **Consistencia:** evita errores comunes gracias a un formato único.
-    
-- **Eficiencia:** simplifica integración y acelera tiempos de desarrollo.
-    
-- **Reutilización:** contextos verificados pueden aprovecharse en múltiples proyectos.
-    
-- **Seguridad:** la validación de metadatos ayuda a controlar accesos sensibles.
-    
+## ¿Cómo funciona?
 
-## ¿Dónde se aplica MCP?
+Funciona con tres piezas que se comunican con mensajes JSON-RPC 2.0:
 
-- **Equipos multidisciplinarios de IA**: facilita el intercambio entre perfiles técnicos.
-    
-- **IA generativa**: proporciona contexto estructurado clave para respuestas coherentes.
-    
-- **Plataformas de machine learning**: integran sistemas diversos con un mismo protocolo.
-    
-- **Automatización empresarial**: apoyo en flujos de datos continuos y modelos distribuidos.
-    
+| Pieza | Qué es | Ejemplo |
+| --- | --- | --- |
+| Host | La aplicación de IA que usas | Claude, ChatGPT, un editor de código |
+| Cliente | El conector dentro del host, uno por servidor | El conector de Gmail en Claude |
+| Servidor | El servicio que da acceso a una herramienta o a unos datos | El servidor MCP de Google Calendar |
 
-## ¿Cómo implementar MCP paso a paso?
+El servidor puede ofrecer tres cosas:
 
-- **Audita tus fuentes de datos**  
-    Haz un inventario con variables, orígenes, formatos y metadatos.
-    
-- **Diseña el esquema MCP**  
-    Usa JSON Schema o Protobuf para definir los campos clave: variable, tipo, origen, timestamp, rango y descripción.
-    
-- **Desarrolla el módulo de exportación**  
-    Crea librerías o scripts que generen el contexto siguiendo el esquema.
-    
-- **Crea librerías de consumo**  
-    Implementa funciones que lean, validen y entreguen el contexto a tus modelos.
-    
-- **Agrega validación**  
-    Implementa validadores que detecten errores o inconsistencias automáticamente.
-    
-- **Prueba un caso real**  
-    Por ejemplo, genera un contexto para un modelo predictivo y verifica su funcionamiento.
-    
-- **Itera y documenta**  
-    Asegúrate de registrar versiones, cambios y ejemplos de uso para futuros desarrolladores. 
-    
+- **Herramientas (tools):** acciones que el modelo puede ejecutar, como crear un evento o enviar un diseño.
+- **Recursos (resources):** datos que el modelo puede leer, como un documento o tu agenda.
+- **Prompts:** plantillas de instrucciones que tú puedes lanzar.
 
-## Preguntas frecuentes sobre MCP
+El modelo decide cuándo usar una herramienta, y la aplicación te pide permiso antes de ejecutarla.
 
-**¿El MCP es propietario o abierto?**  
-Es un protocolo abierto desarrollado por la comunidad y disponible con licencias permisivas.
+## ¿Cómo lo uso en mi día a día?
 
-**¿Qué herramientas lo soportan?**  
-Existen librerías para Python, Java, Node.js y módulos integrados en frameworks como TensorFlow o PyTorch.
+Lo uso sobre todo a través de los conectores de Claude: Gmail, Google Calendar, Google Drive, Canva y Framer. Dos ejemplos:
 
-**¿Es compatible con arquitecturas distribuidas?**  
-Sí. MCP facilita la transmisión entre servicios, contenedores o microservicios sin necesidad de adaptación adicional.
+- **Presentaciones:** preparo la presentación con Claude Design y la envío a Canva por MCP para terminarla allí. Nadie ha tenido que programar una integración entre los dos: Canva publica su servidor y Claude lo usa.
+- **Agenda:** Claude lee mi calendario y me prepara recordatorios a partir de lo que tengo esa semana. No tengo que copiarle nada, porque el contexto le llega por el conector.
 
-**¿Cuáles son los estándares clave a respetar?**
+Lo que más valoro es que el contexto llega solo. Antes pegaba en el chat el correo, la agenda o el documento. Ahora el modelo lo consulta cuando lo necesita, con los permisos que le he dado.
 
-- Formato JSON o Protobuf
-    
-- Validación mediante JSON Schema o herramientas similares
-    
-- Versionado semántico y control de cambios
-    
-- Documentación clara y ejemplos de uso
-    
+## ¿En qué se diferencia de una API o del function calling?
 
-## Conclusión
+Se diferencia en quién hace la integración y cuántas veces. Una API conecta tu código con un servicio. El *function calling* deja que un modelo use funciones que tú defines dentro de tu aplicación. El MCP estandariza esas funciones para que cualquier aplicación compatible las encuentre y las use sin código nuevo.
 
-- El **MCP** unifica el intercambio de contexto entre sistemas IA, ofreciendo precisión, rapidez y consistencia.
-    
-- Es ideal para equipos de datos multidisciplinares, IA generativa y plataformas de machine learning.
-    
-- Implementarlo puede marcar la diferencia en tus proyectos IA.
+| | API directa | Function calling | MCP |
+| --- | --- | --- | --- |
+| Quién la usa | Tu código | Un modelo, dentro de tu app | Cualquier app compatible |
+| Integración | A medida | A medida, en cada app | Una vez por herramienta |
+| Cuándo encaja | Tu app necesita un servicio concreto | Un agente con pocas herramientas propias | Herramientas que quieres usar desde varios asistentes |
+
+## ¿Cuándo no hace falta el MCP?
+
+No hace falta cuando tu aplicación solo necesita usar un modelo, sin darle herramientas ni datos externos.
+
+Me pasa con Silbo, una app de dictado para Mac que he construido. Silbo transcribe mi voz en el propio Mac, y un modelo local en Ollama limpia las muletillas y repeticiones antes de pegar el texto. Silbo llama directamente a la API local de Ollama. Como el modelo no tiene que leer nada ni actuar en ningún sitio, el MCP solo añadiría una capa más.
+
+**La regla que uso:** si el modelo tiene que usar tus herramientas, piensa en MCP. Si es tu código el que usa el modelo, basta con una llamada a la API.
+
+## ¿Qué riesgos tiene?
+
+El riesgo principal es que un servidor MCP puede leer tus datos y actuar en tu nombre. La especificación trata las herramientas como ejecución de código y exige que la aplicación te pida permiso antes de usarlas. También advierte que las descripciones de las herramientas no son fiables si el servidor no es de confianza: un servidor malicioso puede describir una herramienta de forma engañosa para que el modelo la use mal.
+
+Por eso tengo una regla, tanto en el trabajo como en mis proyectos personales: no instalo ningún servidor MCP de un desarrollador que no conozco. En la práctica, eso significa conectores oficiales del propio servicio, como los de Google, Canva o Framer.
+
+## ¿Por dónde empiezo?
+
+- **Si usas Claude o ChatGPT:** activa el conector oficial de una herramienta que uses a diario, como el calendario o el correo, y pídele una tarea que hoy haces a mano.
+- **Si desarrollas:** lee la especificación y prueba un servidor de los SDK oficiales antes de escribir el tuyo.
+
+Si quieres ver cómo llevo la IA a producción, [cuéntame tu proyecto](/es/#contact).
+
+## Fuentes
+
+- [Especificación oficial del MCP](https://modelcontextprotocol.io/specification/latest) (versión 2026-07-28)
+- [Anuncio de Anthropic (noviembre de 2024)](https://www.anthropic.com/news/model-context-protocol)
+- [El MCP se une a la Agentic AI Foundation (9 de diciembre de 2025)](https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/)
