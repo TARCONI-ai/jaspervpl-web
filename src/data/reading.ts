@@ -133,7 +133,7 @@ export const reading: Record<Lang, Reading> = {
           'It was my first step into consumer behaviour. Lindstrom studied 2,000 volunteers for three years and reached a conclusion that stuck with me: "products are made in the factory, brands are made in our minds".',
         today:
           "Users don't care which model sits behind a tool. They judge it by what they experience when they use it: whether they understand it and whether they trust it. That's why I spend as much time on the user experience as on choosing the model.",
-        review: { label: 'My 2022 review (in Spanish)', href: `${blog}/blog/libros/buyology/`, lang: 'es' },
+        review: { label: 'My 2022 review', href: '/writing/buyology/', lang: 'en' },
       },
       {
         id: 'apunta-a-las-estrellas',
@@ -144,7 +144,7 @@ export const reading: Record<Lang, Reading> = {
           'A psychology lecturer at university recommended it, and it was my first book on entrepreneurship. It tells the story of the founder of Telepizza, from leaving Cuba to taking two companies onto the Ibex 35. The idea I took from it: success comes from habits, not from a lucky break.',
         today:
           "I work with a method because one good result is worth nothing if I can't repeat it. Spec first, then the code, and always a review.",
-        review: { label: 'My 2022 review (in Spanish)', href: `${blog}/blog/libros/apunta-a-las-estrellas-y-llegaras-a-la-luna/`, lang: 'es' },
+        review: { label: 'My 2022 review', href: '/writing/aim-for-the-stars/', lang: 'en' },
       },
       {
         id: 'las-trampas-del-deseo',
@@ -155,7 +155,7 @@ export const reading: Record<Lang, Reading> = {
           'This is the book that made me doubt that we decide rationally. In his chocolate experiment, 70% of people pick a worse free chocolate over a premium one that costs one cent.',
         today:
           "We decide with emotion and justify it afterwards with reason. That's why nobody switches tools because of a feature list: people stick with what they know and find comfortable. I start from what my users already use and add AI where it saves them work, without making them learn anything new.",
-        review: { label: 'My 2022 summary of his interview with Eduard Punset (in Spanish)', href: `${blog}/blog/peliculas/las-trampas-del-deseo/`, lang: 'es' },
+        review: { label: 'My 2022 summary of his interview with Eduard Punset', href: '/writing/dan-ariely-traps-of-desire/', lang: 'en' },
       },
     ],
     now: {

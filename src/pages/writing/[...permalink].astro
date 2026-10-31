@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import PostPage from '../../components/PostPage.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => !p.data.draft);
+  return posts
+    .filter((post) => post.data.lang === 'en')
+    .map((post) => ({
+      params: { permalink: post.data.permalink.replace('/writing/', '').replace(/\/$/, '') },
+      props: {
+        post,
+        translations: posts.filter((p) => p.data.translationKey === post.data.translationKey && p !== post),
+      },
+    }));
+}
+---
+<PostPage {...Astro.props} />

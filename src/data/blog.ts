@@ -1,7 +1,8 @@
-// Blog chrome per language. The posts themselves live in src/content/blog/{es,nl}.
+// Blog chrome per language. The posts themselves live in src/content/blog/{en,es,nl}.
 import type { Lang } from './i18n';
 
-export const blogPath: Partial<Record<Lang, string>> = { es: '/blog/', nl: '/nl/blog/' };
+// Spanish keeps the v1 URLs at /blog/; English is new at /writing/.
+export const blogPath: Record<Lang, string> = { en: '/writing/', es: '/blog/', nl: '/nl/blog/' };
 
 type BlogCopy = {
   title: string;
@@ -16,7 +17,24 @@ type BlogCopy = {
   readingLink: string;
 };
 
-export const blog: Record<'es' | 'nl', BlogCopy> = {
+export const blog: Record<Lang, BlogCopy> = {
+  en: {
+    title: 'Writing',
+    description:
+      'Articles by Jasper van Puffelen López on applied AI, reviews of the books that shaped him and the archive from his marketing years.',
+    intro: 'What I write about applied AI, reviews of the books that shaped me and the archive from my marketing years.',
+    dateLocale: 'en-GB',
+    published: 'Published',
+    updated: 'Updated',
+    sections: {
+      ai: { title: 'Applied AI', text: 'Tools, protocols and what I have built with them.' },
+      reading: { title: 'Reading', text: 'Reviews of the books that still shape how I design products.' },
+      archive: { title: 'Archive · marketing years', text: 'Articles from 2022 to 2025, when I worked in marketing and SEO. I leave them as I published them.' },
+    },
+    archiveNote: (year) => `I wrote this article in ${year}, during my marketing years. I leave it as I published it.`,
+    readingNote: 'This review is part of my reading list: what the book taught me and what I use from it today.',
+    readingLink: 'See Reading',
+  },
   es: {
     title: 'Blog',
     description:

@@ -1,5 +1,5 @@
 ---
-// One blog post. Rendered by src/pages/blog/[...permalink].astro (es) and src/pages/nl/blog/[...permalink].astro (nl).
+// One blog post. Rendered by the [...permalink].astro routes under src/pages/{writing,blog,nl/blog}.
 import { render, type CollectionEntry } from 'astro:content';
 import { getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
@@ -13,10 +13,11 @@ import { reading, readingPath } from '../data/reading';
 
 interface Props {
   post: CollectionEntry<'blog'>;
-  alt?: CollectionEntry<'blog'>;
+  // The same post in other languages
+  translations: CollectionEntry<'blog'>[];
 }
 
-const { post, alt } = Astro.props;
+const { post, translations } = Astro.props;
 const d = post.data;
 const lang = d.lang;
 const b = blog[lang];
@@ -28,7 +29,7 @@ const description = d.description ?? excerpt(post.body);
 const cover = d.cover ? await getImage({ src: d.cover, width: 1200, format: 'jpeg' }) : undefined;
 const iso = (date: Date) => date.toISOString().slice(0, 10);
 const fmt = new Intl.DateTimeFormat(b.dateLocale, { day: 'numeric', month: 'long', year: 'numeric' });
-const alternates = { [lang]: d.permalink, ...(alt ? { [alt.data.lang]: alt.data.permalink } : {}) };
+const alternates = Object.fromEntries([post, ...translations].map((p) => [p.data.lang, p.data.permalink]));
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -48,7 +49,7 @@ const jsonLd = {
       '@id': `${url}#breadcrumb`,
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: site.brand, item: new URL(homePath(lang), Astro.site).href },
-        { '@type': 'ListItem', position: 2, name: b.title, item: new URL(blogPath[lang]!, Astro.site).href },
+        { '@type': 'ListItem', position: 2, name: b.title, item: new URL(blogPath[lang], Astro.site).href },
         { '@type': 'ListItem', position: 3, name: d.title, item: url },
       ],
     },

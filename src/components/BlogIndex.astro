@@ -1,17 +1,17 @@
 ---
-// The blog home per language: /blog/ (es) and /nl/blog/ (nl).
+// The blog home per language: /writing/ (en), /blog/ (es) and /nl/blog/ (nl).
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import Icon from './Icon.astro';
 import { site } from '../data/site';
-import { homePath } from '../data/i18n';
+import { homePath, type Lang } from '../data/i18n';
 import { blog, blogPath } from '../data/blog';
 import { readingPath } from '../data/reading';
 
 interface Props {
-  lang: 'es' | 'nl';
+  lang: Lang;
 }
 
 const { lang } = Astro.props;
@@ -23,8 +23,8 @@ const sections = (['ai', 'reading', 'archive'] as const)
   .map((id) => ({ id, ...b.sections[id], posts: posts.filter((p) => p.data.section === id) }))
   .filter((s) => s.posts.length);
 const fmt = new Intl.DateTimeFormat(b.dateLocale, { month: 'short', year: 'numeric' });
-const alternates = { es: blogPath.es, nl: blogPath.nl };
-const url = new URL(blogPath[lang]!, Astro.site).href;
+const alternates = blogPath;
+const url = new URL(blogPath[lang], Astro.site).href;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [

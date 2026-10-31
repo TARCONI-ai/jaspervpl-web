@@ -4,13 +4,18 @@ import { z } from 'astro/zod';
 
 // Blog posts carried over from v1. Each keeps its old permalink so no URL changes at launch.
 const blog = defineCollection({
-  loader: glob({ pattern: '*/*/index.md', base: './src/content/blog' }),
+  // Id from the folder (es/buyology), since several languages share the same slug
+  loader: glob({
+    pattern: '*/*/index.md',
+    base: './src/content/blog',
+    generateId: ({ entry }) => entry.replace(/\/index\.md$/, ''),
+  }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
       date: z.coerce.date(),
       updated: z.coerce.date().optional(),
-      lang: z.enum(['es', 'nl']),
+      lang: z.enum(['en', 'es', 'nl']),
       slug: z.string(),
       categories: z.array(z.string()),
       translationKey: z.string(),

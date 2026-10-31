@@ -27,4 +27,4 @@ En general, es posible utilizar tanto el SEO como el SEM de manera efectiva para
 
 En resumen, el SEO y el SEM son estrategias complementarias que tienen como objetivo mejorar el posicionamiento de un sitio web en los motores de búsqueda, cómo por ejemplo el de Google o Yandex. Cada uno ofrece ventajas únicas y puede ser utilizado para alcanzar objetivos diferentes. Lo importante es entender las diferencias entre ambos y utilizarlos de manera estratégica para lograr los mejores resultados posibles. 
 
-A nivel personal, yo estoy especializado en SEO, de hecho desempeño esta función en mi trabajo, optimizar diferentes páginas webs para que aumenten su autoridad y su presencia en internet. No dudes en [contactar conmigo](/contacto/) si tienes alguna duda.
+A nivel personal, yo estoy especializado en SEO, de hecho desempeño esta función en mi trabajo, optimizar diferentes páginas webs para que aumenten su autoridad y su presencia en internet. No dudes en [contactar conmigo](/es/#contact) si tienes alguna duda.
