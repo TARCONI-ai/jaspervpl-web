@@ -1,5 +1,6 @@
 // Language-neutral data: links, tools, project numbers. Translated copy lives in ./copy/{en,es,nl}.ts.
 import type { Copy } from './copy/en';
+import type { Lang } from './i18n';
 
 export const site = {
   name: 'Jasper van Puffelen López',
@@ -39,7 +40,7 @@ export type Project = {
   featured?: boolean;
   metrics?: string[]; // values; labels come from copy, in the same order
   visual: 'evals' | 'prompt' | 'pipeline';
-  href?: string;
+  href?: string | Record<Lang, string>;
 };
 
 export const projects: Project[] = [
@@ -48,7 +49,7 @@ export const projects: Project[] = [
     slug: 'aio-article-gpt',
     sample: false,
     visual: 'prompt',
-    href: 'https://jaspervpl.com/blog/gpts-personalizados/gpt-generador-de-articulos-automatizados-aio/',
+    href: { en: '/resources/ai-overviews-writer/', es: '/es/recursos/ai-overviews-writer/', nl: '/nl/resources/ai-overviews-writer/' },
   },
   { slug: 'invoice-extraction', sample: true, metrics: ['97.8%', '12%'], visual: 'pipeline' },
 ];

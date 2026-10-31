@@ -5,6 +5,7 @@ import { nav, site } from '../data/site';
 import { getCopy, getLang, homePath, type Lang } from '../data/i18n';
 import { readingPath } from '../data/reading';
 import { blogPath } from '../data/blog';
+import { resourcesPath } from '../data/resources';
 
 interface Props {
   // Page language when the URL does not carry it
@@ -28,6 +29,7 @@ const year = new Date().getFullYear();
           <h2 class="col-title">{t.footer.site}</h2>
           <ul>
             {nav.map((id) => <li><a href={`${base}#${id}`}>{t.nav[id]}</a></li>)}
+            <li><a href={resourcesPath[lang]}>{t.nav.resources}</a></li>
             <li><a href={readingPath[lang]}>{t.nav.reading}</a></li>
             <li><a href={`${base}#contact`}>{t.nav.contact}</a></li>
           </ul>

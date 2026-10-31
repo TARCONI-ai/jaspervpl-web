@@ -1,0 +1,9 @@
+---
+import ResourcesPage from '../../components/ResourcesPage.astro';
+import { resources } from '../../data/resources';
+
+export function getStaticPaths() {
+  return resources.en.items.map((r) => ({ params: { slug: r.slug } }));
+}
+---
+<ResourcesPage slug={Astro.params.slug} />

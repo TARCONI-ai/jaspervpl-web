@@ -19,7 +19,7 @@ export const en = {
     closeMenu: 'Close menu',
     deliverable: 'Deliverable: ',
   },
-  nav: { work: 'Work', method: 'Method', lab: 'Lab', writing: 'Writing', contact: 'Contact', reading: 'Reading' },
+  nav: { work: 'Work', method: 'Method', lab: 'Lab', writing: 'Writing', contact: 'Contact', resources: 'Resources', reading: 'Reading' },
   bookCall: 'Book a call',
 
   hero: {
@@ -73,12 +73,12 @@ export const en = {
         linkLabel: '',
       },
       'aio-article-gpt': {
-        title: 'AIO article generator GPT',
+        title: 'ai-overviews-writer skill',
         summary:
-          'A custom GPT that drafts articles structured for visibility in AI answer engines, documented step by step on the blog.',
-        tags: ['Custom GPT', 'Prompt design', 'AIO'],
+          'An open-source agent skill that plans, drafts and checks articles so AI search can cite them. It asks for a first-hand case before writing a word.',
+        tags: ['Agent Skills', 'Prompt design', 'GEO'],
         metrics: [] as string[],
-        linkLabel: 'Read the write-up (ES)',
+        linkLabel: 'Get the skill',
       },
       'invoice-extraction': {
         title: 'Invoice extraction with a human in the loop',

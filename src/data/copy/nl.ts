@@ -20,7 +20,7 @@ export const nl: Copy = {
     closeMenu: 'Menu sluiten',
     deliverable: 'Oplevering: ',
   },
-  nav: { work: 'Werk', method: 'Methode', lab: 'Lab', writing: 'Artikelen', contact: 'Contact', reading: 'Leeslijst' },
+  nav: { work: 'Werk', method: 'Methode', lab: 'Lab', writing: 'Artikelen', contact: 'Contact', resources: 'Resources', reading: 'Leeslijst' },
   bookCall: 'Plan een gesprek',
 
   hero: {
@@ -74,12 +74,12 @@ export const nl: Copy = {
         linkLabel: '',
       },
       'aio-article-gpt': {
-        title: 'AIO-artikelgenerator GPT',
+        title: 'Skill ai-overviews-writer',
         summary:
-          'Een custom GPT die artikelen schrijft die zijn gestructureerd voor zichtbaarheid in AI-antwoordmachines, stap voor stap gedocumenteerd op de blog.',
-        tags: ['Custom GPT', 'Promptontwerp', 'AIO'],
+          'Een open-source skill die artikelen plant, schrijft en controleert, zodat AI-zoekmachines ze kunnen citeren. Hij vraagt eerst om een eigen praktijkvoorbeeld.',
+        tags: ['Agent Skills', 'Promptontwerp', 'GEO'],
         metrics: [],
-        linkLabel: 'Lees het verslag (ES)',
+        linkLabel: 'Download de skill',
       },
       'invoice-extraction': {
         title: 'Factuurextractie met een mens in de loop',

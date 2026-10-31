@@ -20,7 +20,7 @@ export const es: Copy = {
     closeMenu: 'Cerrar menú',
     deliverable: 'Entregable: ',
   },
-  nav: { work: 'Proyectos', method: 'Método', lab: 'Lab', writing: 'Artículos', contact: 'Contacto', reading: 'Lecturas' },
+  nav: { work: 'Proyectos', method: 'Método', lab: 'Lab', writing: 'Artículos', contact: 'Contacto', resources: 'Recursos', reading: 'Lecturas' },
   bookCall: 'Reservar llamada',
 
   hero: {
@@ -74,12 +74,12 @@ export const es: Copy = {
         linkLabel: '',
       },
       'aio-article-gpt': {
-        title: 'GPT generador de artículos AIO',
+        title: 'Skill ai-overviews-writer',
         summary:
-          'Un GPT personalizado que redacta artículos estructurados para aparecer en los motores de respuesta de IA, documentado paso a paso en el blog.',
-        tags: ['GPT personalizado', 'Diseño de prompts', 'AIO'],
+          'Una skill de código abierto que planifica, redacta y revisa artículos para que los buscadores con IA puedan citarlos. Antes de escribir, te pide un caso propio.',
+        tags: ['Agent Skills', 'Diseño de prompts', 'GEO'],
         metrics: [],
-        linkLabel: 'Leer el artículo',
+        linkLabel: 'Descargar la skill',
       },
       'invoice-extraction': {
         title: 'Extracción de facturas con revisión humana',
