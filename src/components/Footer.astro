@@ -1,11 +1,12 @@
 ---
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
-import { nav, site } from '../data/site';
+import { site } from '../data/site';
 import { getCopy, getLang, homePath, type Lang } from '../data/i18n';
 import { readingPath } from '../data/reading';
 import { blogPath } from '../data/blog';
 import { resourcesPath } from '../data/resources';
+import { projectsPath } from '../data/projects';
 
 interface Props {
   // Page language when the URL does not carry it
@@ -28,7 +29,10 @@ const year = new Date().getFullYear();
         <div>
           <h2 class="col-title">{t.footer.site}</h2>
           <ul>
-            {nav.map((id) => <li><a href={`${base}#${id}`}>{t.nav[id]}</a></li>)}
+            <li><a href={projectsPath[lang]}>{t.nav.projects}</a></li>
+            <li><a href={`${base}#method`}>{t.nav.method}</a></li>
+            <li><a href={`${base}#about`}>{t.nav.about}</a></li>
+            <li><a href={blogPath[lang]}>{t.nav.writing}</a></li>
             <li><a href={resourcesPath[lang]}>{t.nav.resources}</a></li>
             <li><a href={readingPath[lang]}>{t.nav.reading}</a></li>
             <li><a href={`${base}#contact`}>{t.nav.contact}</a></li>
@@ -38,7 +42,7 @@ const year = new Date().getFullYear();
           <h2 class="col-title">{t.footer.elsewhere}</h2>
           <ul>
             <li><a href={site.linkedin} rel="me noopener">LinkedIn <Icon name="arrow-up-right" /></a></li>
-            <li><a href={blogPath[lang]}>Blog</a></li>
+            <li><a href={site.github} rel="me noopener">GitHub <Icon name="arrow-up-right" /></a></li>
             <li><a href={`mailto:${site.email}`}>{t.footer.email}</a></li>
           </ul>
         </div>

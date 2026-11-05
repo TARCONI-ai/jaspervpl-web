@@ -13,19 +13,18 @@ npm run build    # static output in dist/
 | Path | What it is |
 |---|---|
 | `src/styles/global.css` | Brand tokens (palette, type, radii) and semantic light/dark roles |
-| `src/data/site.ts` | All copy, links, projects and articles. Translate or edit here |
+| `src/data/copy/{en,es,nl}.ts` | Home copy per language |
+| `src/data/projects.ts` | Projects, categories and project pages in three languages. Add `github` when a repo goes public |
+| `src/data/site.ts` | Links and the stack |
 | `src/components/Logo.astro` + `logo-paths.ts` | Vector trace of the official logo (lockup + shield) |
 | `src/components/Hero.astro` | Reference layout: centred serif H1, tilted side cards, connectors, seal, 3D card ring around the arch |
-| `src/components/Work.astro` | Case-study cards (Light Vanilla + Beige border) |
-| `src/components/Terminal.astro` | Deep-green code block with tabs, copy button and line-by-line print |
+| `src/components/Work.astro` | Project cards on the home page |
+| `src/components/ProjectsPage.astro` | Projects index and one page per project |
 | `src/pages/guilloche.svg.ts` | Build-time banknote engraving used on deep-green surfaces |
 | `public/` | Favicon (reduced variant) and logo SVGs: green, inverted, mark |
 
 ## Before launch
 
-- `site.linkedin` in `src/data/site.ts` is a placeholder. The current site does not link a profile.
-- Projects with `sample: true` are illustrative and show a "Sample" tag. Replace them with real work (and real numbers) or delete them.
-- The `stack` list is a guess. Confirm it.
 - The wordmark is the current Cormorant-style one, traced from the supplied logo. When the Fraunces redraw lands, replace the paths in `logo-paths.ts`.
 
 ## Brand compliance notes

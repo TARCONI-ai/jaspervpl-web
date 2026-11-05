@@ -13,8 +13,8 @@ const t = getCopy(Astro.currentLocale);
         <h2 id="contact-title">{t.contact.title}<em>{t.contact.titleEm}</em></h2>
         <p>{t.contact.text}</p>
         <div class="actions">
-          <a class="btn btn-light" href={site.contact}>{t.contact.cta} <Icon name="arrow-right" /></a>
-          <a class="btn btn-ghost" href={`mailto:${site.email}`}>{site.email}</a>
+          <a class="btn btn-light" href={`mailto:${site.email}`}>{site.email} <Icon name="arrow-right" /></a>
+          <a class="btn btn-ghost" href={site.linkedin} rel="me noopener">LinkedIn <Icon name="arrow-up-right" /></a>
         </div>
       </div>
       <div class="seal-art" aria-hidden="true">

@@ -1,22 +1,23 @@
 ---
 import Icon from './Icon.astro';
-import { site } from '../data/site';
-import { getCopy } from '../data/i18n';
+import { getCopy, getLang } from '../data/i18n';
+import { projectsPath } from '../data/projects';
 
-const t = getCopy(Astro.currentLocale);
+const lang = getLang(Astro.currentLocale);
+const t = getCopy(lang);
 const r = t.hero.ring;
 
-// Cards orbiting the portrait. Purely decorative (the same ideas are covered in the Method section).
+// Cards orbiting the portrait. Purely decorative (the same ideas are covered in the Method and Projects sections).
 const ring = [
-  { kind: 'label', icon: 'check', chip: 'green', ...r.evals },
-  { kind: 'trend' },
-  { kind: 'label', icon: 'wave', chip: 'gold', ...r.retrieval },
-  { kind: 'code' },
-  { kind: 'label', icon: 'shield', chip: 'deep', ...r.guardrails },
-  { kind: 'bars' },
-  { kind: 'label', icon: 'trend', chip: 'beige', ...r.observability },
-  { kind: 'metric' },
-] as const;
+  { icon: 'check', chip: 'green', ...r.user },
+  { icon: 'star', chip: 'beige', ...r.nfc },
+  { icon: 'wave', chip: 'gold', ...r.spec },
+  { icon: 'trend', chip: 'deep', ...r.opo },
+  { icon: 'shield', chip: 'deep', ...r.review },
+  { icon: 'wave', chip: 'green', ...r.silbo },
+  { icon: 'check', chip: 'beige', ...r.verify },
+  { icon: 'plus', chip: 'gold', ...r.skills },
+];
 ---
 <section class="hero" aria-labelledby="hero-title">
   <div class="container hero-inner" data-hero>
@@ -41,11 +42,12 @@ const ring = [
         <em class="line">{t.hero.titleLine2}</em>
       </h1>
       <p class="lead">{t.hero.lead}</p>
+      <p class="thesis">{t.hero.thesis}</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href={site.contact}>
+        <a class="btn btn-primary" href={projectsPath[lang]}>
           {t.hero.ctaPrimary} <Icon name="arrow-right" />
         </a>
-        <a class="btn btn-secondary btn-dot" href="#work">
+        <a class="btn btn-secondary btn-dot" href="#contact">
           <span class="dot"><Icon name="arrow-down" /></span> {t.hero.ctaSecondary}
         </a>
       </div>
@@ -59,7 +61,7 @@ const ring = [
 
     <aside class="float-card float-right" data-float="right" aria-label={t.hero.cardRight.label}>
       <div class="stack-chips" aria-hidden="true">
-        <span>Py</span><span>TS</span><span>SQL</span><span class="plus"><Icon name="plus" /></span>
+        <span>NL</span><span>ES</span><span>EN</span>
       </div>
       <p class="fc-title">{t.hero.cardRight.title}</p>
       <p class="fc-text">{t.hero.cardRight.text}</p>
@@ -79,61 +81,15 @@ const ring = [
         </div>
         <div class="ring-bounds" data-ring-bounds></div>
         <div class="ring">
-          {ring.map((card, i) => {
-            if (card.kind === 'label') {
-              return (
-                <div class="rc rc-label" style={`--i:${i}`}>
-                  <span class={`chip chip--${card.chip}`}><Icon name={card.icon} /></span>
-                  <span class="rc-text">
-                    <span class="rc-title">{card.title}</span>
-                    <span class="rc-sub">{card.sub}</span>
-                  </span>
-                </div>
-              );
-            }
-            if (card.kind === 'trend') {
-              return (
-                <div class="rc rc-visual" style={`--i:${i}`}>
-                  <svg viewBox="0 0 108 80" class="spark">
-                    <path class="grid" d="M0 20h108M0 40h108M0 60h108" />
-                    <path class="line" d="M8 70 26 54l22-6 20-18 18-6 14-14" />
-                    <circle cx="26" cy="54" r="3.6" /><circle cx="48" cy="48" r="3.6" /><circle cx="68" cy="30" r="3.6" />
-                    <path class="head" d="m103 4-11 2.5 8 8z" />
-                  </svg>
-                  <span class="rc-sub">{r.trend}</span>
-                </div>
-              );
-            }
-            if (card.kind === 'code') {
-              return (
-                <div class="rc rc-code" style={`--i:${i}`}>
-                  <span><b>$</b> eval run</span>
-                  <span><b>✓</b> grounded .94</span>
-                  <span><b>✓</b> pii leaks 0</span>
-                  <span><b>✓</b> 412 cases</span>
-                </div>
-              );
-            }
-            if (card.kind === 'bars') {
-              return (
-                <div class="rc rc-visual" style={`--i:${i}`}>
-                  <svg viewBox="0 0 108 80" class="bars">
-                    {[22, 38, 56, 64, 48, 34, 24, 16, 10, 6].map((h, j) => (
-                      <rect x={4 + j * 10.4} y={74 - h} width="7" height={h} rx="2" />
-                    ))}
-                    <path class="p95" d="M84 4v74" />
-                  </svg>
-                  <span class="rc-sub">{r.bars}</span>
-                </div>
-              );
-            }
-            return (
-              <div class="rc rc-metric" style={`--i:${i}`}>
-                <span class="big">1.2s</span>
-                <span class="rc-sub">{r.metric}</span>
-              </div>
-            );
-          })}
+          {ring.map((card, i) => (
+            <div class="rc rc-label" style={`--i:${i}`}>
+              <span class={`chip chip--${card.chip}`}><Icon name={card.icon} /></span>
+              <span class="rc-text">
+                <span class="rc-title">{card.title}</span>
+                <span class="rc-sub">{card.sub}</span>
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -187,6 +143,7 @@ const ring = [
   }
   h1 .line { display: block; }
   .lead { max-width: 36rem; }
+  .thesis { max-width: 36rem; color: var(--heading); font: italic 500 18px/1.45 var(--font-display); }
   .cta-row {
     display: flex;
     flex-wrap: wrap;
@@ -438,50 +395,6 @@ const ring = [
   .rc-sub {
     font: 400 11px/1.3 var(--font-mono);
     color: var(--text-muted);
-  }
-
-  .rc-visual {
-    --w: 150px;
-    --h: 156px;
-    display: grid;
-    align-content: space-between;
-    padding: 14px;
-  }
-  .spark .grid { stroke: var(--border); stroke-width: 1; }
-  .spark .line { fill: none; stroke: var(--emphasis); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-  .spark circle,
-  .spark .head { fill: var(--emphasis); }
-  .bars rect { fill: var(--emphasis); opacity: 0.85; }
-  .bars .p95 { stroke: var(--decor); stroke-width: 1.4; stroke-dasharray: 3 3; }
-
-  .rc-code {
-    --w: 168px;
-    --h: 120px;
-    display: grid;
-    align-content: center;
-    gap: 3px;
-    padding: 0 16px;
-    border-color: rgb(247 241 225 / 0.12);
-    background: var(--green-deep);
-    color: var(--vanilla);
-    font: 400 12px/1.5 var(--font-mono);
-    white-space: nowrap;
-  }
-  .rc-code b { font-weight: 400; color: var(--gold-light); }
-
-  .rc-metric {
-    --w: 156px;
-    --h: 112px;
-    display: grid;
-    align-content: center;
-    justify-items: start;
-    gap: 2px;
-    padding: 0 18px;
-  }
-  .rc-metric .big {
-    font: 500 36px/1 var(--font-display);
-    letter-spacing: -0.01em;
-    color: var(--label);
   }
 
   /* Bottom corner notes */

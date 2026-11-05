@@ -1,12 +1,12 @@
 // English copy. es.ts and nl.ts must have the same shape (the Copy type enforces it).
 export const en = {
   meta: {
-    title: 'Jasper van Puffelen López · AI Engineer',
+    title: 'Jasper van Puffelen López · AI engineer',
     description:
-      'Jasper van Puffelen López is an AI engineer who takes LLM prototypes to production: evaluated before launch, observable in use, affordable at scale.',
+      'Jasper van Puffelen López is an AI engineer at NOBRAINERS. He takes AI to production with a method: spec first, human review always.',
   },
-  role: 'AI Engineer',
-  tagline: 'Bringing AI to production, with method.',
+  role: 'AI engineer',
+  tagline: 'Taking AI to production, with a method.',
   a11y: {
     skip: 'Skip to content',
     home: 'JasperVPL, home',
@@ -17,152 +17,90 @@ export const en = {
     toLight: 'Switch to light theme',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
-    deliverable: 'Deliverable: ',
   },
-  nav: { work: 'Work', method: 'Method', lab: 'Lab', writing: 'Writing', contact: 'Contact', resources: 'Resources', reading: 'Reading' },
-  bookCall: 'Book a call',
+  nav: { projects: 'Projects', method: 'How I work', about: 'About', writing: 'Writing', contact: 'Contact', resources: 'Resources', reading: 'Reading' },
+  writeMe: 'Email me',
 
   hero: {
-    titleLine1: 'Bringing AI to production',
-    titleLine2: 'with method.',
-    lead: "I'm Jasper, an AI engineer. I turn LLM prototypes into production systems that are evaluated before launch, observable in use and affordable at scale.",
-    ctaPrimary: 'Tell me about your project',
-    ctaSecondary: 'See selected work',
-    seal: 'AI ENGINEER · WITH METHOD · JASPERVPL.COM ·',
-    cardLeft: {
-      label: 'Approach',
-      title: 'Prototype to production.',
-      text: 'Evals, guardrails and monitoring from the first commit.',
-    },
-    cardRight: {
-      label: 'Deployment',
-      title: 'Runs where you run.',
-      text: 'Your cloud, your models, your data. No lock-in.',
-    },
+    titleLine1: 'I take AI to production',
+    titleLine2: 'with a method.',
+    lead: "I'm Jasper, AI engineer at NOBRAINERS. I start with the user, write the spec before the prompt and review what the AI delivers. I have a background in marketing and work in Dutch, Spanish and English.",
+    thesis: 'AI writes the code. A spec up front and human review make it reliable.',
+    ctaPrimary: 'See projects',
+    ctaSecondary: 'Email me',
+    seal: 'AI ENGINEER · WITH A METHOD · JASPERVPL.COM ·',
+    cardLeft: { label: 'Order', title: 'User first.', text: 'Then the platform, and the model last.' },
+    cardRight: { label: 'Background', title: 'Background in marketing.', text: 'That is why I start with the user.' },
     ring: {
-      evals: { title: 'Evals', sub: 'measure first' },
-      retrieval: { title: 'Retrieval', sub: 'grounded answers' },
-      guardrails: { title: 'Guardrails', sub: 'policy as code' },
-      observability: { title: 'Observability', sub: 'trace every call' },
-      trend: 'quality, v1 → v7',
-      bars: 'latency, p95 line',
-      metric: 'p95 response',
+      user: { title: 'User', sub: 'comes first' },
+      spec: { title: 'Spec', sub: 'before the prompt' },
+      review: { title: 'Review', sub: 'human, always' },
+      verify: { title: 'Verify', sub: 'compiling is not enough' },
+      nfc: { title: 'NFC-huis', sub: 'for my grandparents' },
+      opo: { title: 'OpoGenius', sub: 'on the App Store' },
+      silbo: { title: 'Silbo', sub: 'local AI' },
+      skills: { title: 'Skills', sub: 'open source' },
     },
-    noteLeft: ['One engineer, end to end.', 'From first eval to runbook.'],
-    noteRight: ['Less hype.', 'More method.'],
+    noteLeft: ['I live in the Netherlands.', 'I work in three languages.'],
+    noteRight: ['Compiling isn’t validating.', 'So I verify.'],
   },
 
-  stack: { title: 'Tools I ship with' },
-
   work: {
-    eyebrow: 'Selected work',
-    title: 'Case studies, ',
-    titleEm: 'measured.',
-    intro:
-      'Every project ends with numbers someone can check: eval scores, latency, cost and the share of work still done by people.',
-    sample: 'Sample',
-    sampleTitle: 'Illustrative placeholder. Replace with a real project before launch.',
-    readMore: 'Read the case study',
-    projects: {
-      'support-copilot': {
-        title: 'Support copilot, from demo to daily use',
-        summary:
-          'A retrieval-augmented assistant for a support team, rebuilt around a 400-case evaluation suite before a single prompt was tuned.',
-        tags: ['RAG', 'Evals', 'Observability'],
-        metrics: ['groundedness score', 'median handle time'],
-        linkLabel: '',
-      },
-      'aio-article-gpt': {
-        title: 'ai-overviews-writer skill',
-        summary:
-          'An open-source agent skill that plans, drafts and checks articles so AI search can cite them. It asks for a first-hand case before writing a word.',
-        tags: ['Agent Skills', 'Prompt design', 'GEO'],
-        metrics: [] as string[],
-        linkLabel: 'Get the skill',
-      },
-      'invoice-extraction': {
-        title: 'Invoice extraction with a human in the loop',
-        summary:
-          'Schema-validated extraction for supplier invoices, with confidence routing so only uncertain fields reach a reviewer.',
-        tags: ['Structured outputs', 'Human review'],
-        metrics: ['field accuracy', 'sent to review'],
-        linkLabel: '',
-      },
-    },
+    eyebrow: 'Projects',
+    title: 'What I have ',
+    titleEm: 'built.',
+    readMore: 'See the project',
+    all: 'All projects',
   },
 
   method: {
-    eyebrow: 'The method',
-    title: 'Four steps. ',
-    titleEm: 'No shortcuts.',
-    intro:
-      'Most AI projects stall between demo and production. The gap is rarely the model. It is missing measurement, so measurement comes first.',
+    eyebrow: 'Method',
+    title: 'How I ',
+    titleEm: 'work.',
     steps: [
-      {
-        title: 'Frame',
-        text: 'Define the job the system must do, what good looks like, and what it must never do.',
-        output: 'Success metric and risk register',
-      },
-      {
-        title: 'Measure',
-        text: 'Build the evaluation set first: real cases, scored automatically, with a baseline to beat.',
-        output: 'Eval suite and baseline',
-      },
-      {
-        title: 'Build',
-        text: 'Ship the smallest system that passes the gates. Prompts, retrieval and tools are versioned like code.',
-        output: 'Versioned pipeline that passes',
-      },
-      {
-        title: 'Operate',
-        text: 'Trace every call, alert on drift, and keep the cost per answer inside its budget.',
-        output: 'Dashboards, alerts and runbook',
-      },
+      { title: 'User', text: "Who I'm solving what for. Then I choose the platform, and the model last." },
+      { title: 'Spec', text: "What it must do, what it must never do and how I'll know it works. I write it before the first prompt." },
+      { title: 'Review', text: 'AI writes much of the code. I decide what to ask for and review what comes back.' },
+      { title: 'Verification', text: "Compiling isn't validating. In NFC-huis, 37 tests cover the app's logic." },
     ],
   },
 
-  lab: {
-    eyebrow: 'In practice',
-    titleBefore: 'Evaluation ',
-    titleEm: 'before',
-    titleAfter: ' ambition.',
-    intro:
-      'Every system I build starts with a test suite it has to pass. Prompts are versioned, outputs are scored on every change, and a failed gate blocks the deploy. No releases on gut feeling.',
-    points: [
-      'Eval suites built from your real cases, not public benchmarks',
-      'Guardrails as code, reviewed like any other change',
-      'Tracing and a cost budget from day one',
-    ],
-    tabsLabel: 'Examples',
-    copy: 'Copy',
-    copied: 'Copied',
-    selectToCopy: 'Select to copy',
+  stack: {
+    eyebrow: 'Stack',
+    title: 'What I work ',
+    titleEm: 'with.',
+    groups: { languages: 'Languages', build: 'What I build with', local: 'Local AI', setup: 'My setup' },
+    setup: 'MacBook Pro with M5 Pro and 24 GB of memory. I bought it in early 2026 to work with local models. I built Silbo on it, which uses a 7.7 GB model running on my own Mac.',
+  },
+
+  about: {
+    eyebrow: 'About',
+    title: 'Who ',
+    titleEm: 'I am.',
+    text: "I'm from the Canary Islands and live in the Netherlands. I spent four years in marketing and SEO, which is why I start with the user. Today I'm an AI engineer at NOBRAINERS. Here I share how I work and what goes wrong along the way.",
   },
 
   writing: {
     eyebrow: 'Writing',
-    title: 'Notes from the ',
-    titleEm: 'field.',
-    intro: 'Plain explanations of the tools and protocols changing applied AI. Published in Spanish.',
+    title: 'Latest ',
+    titleEm: 'articles.',
     all: 'All articles',
-    readMore: 'Read in Spanish',
+    readMore: 'Read article',
     dateLocale: 'en-GB',
-    topics: { agents: 'Agents', protocols: 'Protocols', gpts: 'Custom GPTs' },
   },
 
   contact: {
-    label: 'Next step',
-    title: 'Have a prototype that ',
-    titleEm: 'needs to grow up?',
-    text: 'Send me where it stands today: the use case, the data and what is blocking launch. You get a straight first read on what it takes to ship.',
-    cta: 'Tell me about your project',
+    label: 'Contact',
+    title: "If you're taking AI to production, ",
+    titleEm: "I'd like to hear how you do it.",
+    text: 'Email me or find me on LinkedIn.',
   },
 
   footer: {
     site: 'Site',
     elsewhere: 'Elsewhere',
     email: 'Email',
-    colophon: 'JasperVPL brand v2 · Set in Fraunces & IBM Plex · Built with Astro',
+    colophon: 'JasperVPL brand v2 · Set in Fraunces and IBM Plex · Built with Astro',
   },
 };
 

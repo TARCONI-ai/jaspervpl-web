@@ -3,35 +3,49 @@ import { stack } from '../data/site';
 import { getCopy } from '../data/i18n';
 
 const t = getCopy(Astro.currentLocale);
+const g = t.stack.groups;
+const groups = [
+  { title: g.languages, tools: stack.languages },
+  { title: g.build, tools: stack.build },
+  { title: g.local, tools: stack.local },
+];
 ---
-<section class="stack" aria-labelledby="stack-title">
-  <div class="container stack-inner">
-    <h2 id="stack-title" class="eyebrow">{t.stack.title}</h2>
-    <ul class="stack-list">
-      {stack.map((tool) => <li>{tool}</li>)}
-    </ul>
+<section class="section stack" id="stack" aria-labelledby="stack-title">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="eyebrow">{t.stack.eyebrow}</span>
+      <h2 id="stack-title">{t.stack.title}<em>{t.stack.titleEm}</em></h2>
+    </header>
+
+    <div class="grid">
+      {groups.map((group, i) => (
+        <div class="card box reveal" style={`--delay:${i * 0.08}s`}>
+          <h3>{group.title}</h3>
+          <ul class="tools">{group.tools.map((tool) => <li>{tool}</li>)}</ul>
+        </div>
+      ))}
+      <div class="card box setup reveal" style="--delay:0.24s">
+        <h3>{g.setup}</h3>
+        <p>{t.stack.setup}</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
-  .stack { border-bottom: 1px solid var(--border); }
-  .stack-inner {
-    display: flex;
-    align-items: center;
-    gap: 28px 40px;
-    padding-block: 28px;
-  }
-  h2.eyebrow { flex: none; font-family: var(--font-sans); letter-spacing: 0.14em; }
-  .stack-list {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px 22px;
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .box { display: grid; align-content: start; gap: 14px; padding: 26px; }
+  .setup { grid-column: 1 / -1; }
+  .setup p { max-width: 46rem; color: var(--text-muted); }
+  h3 { font-size: 20px; line-height: 1.2; }
+  .tools {
+    display: grid;
+    gap: 8px;
     color: var(--text-muted);
     font: 400 14px/1.4 var(--font-mono);
   }
-  .stack-list li { display: inline-flex; align-items: center; }
-  .stack-list li::before {
+  .tools li { display: flex; align-items: center; }
+  .tools li::before {
     content: "";
     width: 5px;
     height: 5px;
@@ -39,7 +53,5 @@ const t = getCopy(Astro.currentLocale);
     background: var(--decor);
     transform: rotate(45deg);
   }
-  @media (max-width: 900px) {
-    .stack-inner { flex-direction: column; align-items: flex-start; }
-  }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
 </style>

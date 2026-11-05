@@ -1,10 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import Icon from './Icon.astro';
-import { articles, site } from '../data/site';
-import { getCopy } from '../data/i18n';
+import { getCopy, getLang } from '../data/i18n';
+import { blog, blogPath } from '../data/blog';
 
-const t = getCopy(Astro.currentLocale);
+const lang = getLang(Astro.currentLocale);
+const t = getCopy(lang);
 const fmt = new Intl.DateTimeFormat(t.writing.dateLocale, { day: 'numeric', month: 'short', year: 'numeric' });
+// Current AI writing first, then the newest of the rest. Book reviews live on the reading page.
+const rank = (section: string) => (section === 'ai' ? 0 : 1);
+const articles = (await getCollection('blog', (p) => p.data.lang === lang && !p.data.draft && p.data.section !== 'reading'))
+  .sort((a, b) => rank(a.data.section) - rank(b.data.section) || b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
 ---
 <section class="section writing" id="writing" aria-labelledby="writing-title">
   <div class="container">
@@ -12,21 +19,20 @@ const fmt = new Intl.DateTimeFormat(t.writing.dateLocale, { day: 'numeric', mont
       <header class="section-head reveal">
         <span class="eyebrow">{t.writing.eyebrow}</span>
         <h2 id="writing-title">{t.writing.title}<em>{t.writing.titleEm}</em></h2>
-        <p>{t.writing.intro}</p>
       </header>
-      <a class="btn btn-secondary reveal" href={site.blog}>{t.writing.all} <Icon name="arrow-right" /></a>
+      <a class="btn btn-secondary reveal" href={blogPath[lang]}>{t.writing.all} <Icon name="arrow-right" /></a>
     </div>
 
     <ul class="list">
       {articles.map((a, i) => (
         <li class="reveal" style={`--delay:${i * 0.08}s`}>
-          <a class="card post" href={a.href}>
+          <a class="card post" href={a.data.permalink}>
             <span class="post-meta">
-              <span>{t.writing.topics[a.topic]}</span>
-              <time datetime={a.date}>{fmt.format(new Date(a.date))}</time>
+              <span>{blog[lang].sections[a.data.section].title}</span>
+              <time datetime={a.data.date.toISOString().slice(0, 10)}>{fmt.format(a.data.date)}</time>
             </span>
-            <h3 lang="es">{a.title}</h3>
-            <span class="post-more">{t.writing.readMore} <Icon name="arrow-up-right" /></span>
+            <h3>{a.data.title}</h3>
+            <span class="post-more">{t.writing.readMore} <Icon name="arrow-right" /></span>
           </a>
         </li>
       ))}

@@ -1,8 +1,11 @@
 ---
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
-import { nav } from '../data/site';
 import { languages, getLang, getCopy, homePath, type Lang } from '../data/i18n';
+import { blogPath } from '../data/blog';
+import { readingPath } from '../data/reading';
+import { resourcesPath } from '../data/resources';
+import { categoryIds, projectLabels, projects, projectsPath } from '../data/projects';
 
 const lang = Astro.props.lang ?? getLang(Astro.currentLocale);
 const t = getCopy(lang);
@@ -19,6 +22,19 @@ const altPath = (l: Lang) => alternates?.[l] ?? homePath(l);
 // Section links are hashes on the home page and full paths elsewhere
 const home = homePath(lang);
 const base = Astro.url.pathname === home ? '' : home;
+const nav = [
+  { id: 'projects', href: projectsPath[lang] },
+  { id: 'method', href: `${base}#method`, spy: true },
+  { id: 'about', href: `${base}#about`, spy: true },
+  { id: 'writing', href: blogPath[lang] },
+  { id: 'resources', href: resourcesPath[lang] },
+  { id: 'reading', href: readingPath[lang] },
+] as const;
+const isCurrent = (href: string) => Astro.url.pathname.startsWith(href);
+const projectGroups = categoryIds.map((id) => ({
+  title: projectLabels[lang].categories[id],
+  items: projects.filter((p) => p.category === id),
+}));
 ---
 <header class="site-header" data-header>
   <div class="container bar">
@@ -28,8 +44,26 @@ const base = Astro.url.pathname === home ? '' : home;
 
     <nav class="nav-pill" aria-label={t.a11y.primaryNav}>
       <ul>
-        {nav.map((id) => (
-          <li><a href={`${base}#${id}`} data-spy={id}>{t.nav[id]}</a></li>
+        {nav.map((item) => (
+          <li class:list={{ 'has-menu': item.id === 'projects' }}>
+            <a
+              href={item.href}
+              data-spy={'spy' in item ? item.id : undefined}
+              class:list={{ 'is-active': !('spy' in item) && isCurrent(item.href) }}
+            >{t.nav[item.id]}</a>
+            {item.id === 'projects' && (
+              <div class="dropdown">
+                {projectGroups.map((g) => (
+                  <div class="dropdown-group">
+                    <p>{g.title}</p>
+                    <ul>
+                      {g.items.map((p) => <li><a href={`${projectsPath[lang]}${p.slug}/`}>{p.name}</a></li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
+          </li>
         ))}
       </ul>
     </nav>
@@ -59,7 +93,7 @@ const base = Astro.url.pathname === home ? '' : home;
         <Icon name="sun" class="i-sun" />
       </button>
       <a class="btn btn-primary btn-sm cta" href={`${base}#contact`}>
-        {t.bookCall} <Icon name="arrow-down" />
+        {t.writeMe} <Icon name="arrow-down" />
       </a>
       <button
         class="icon-btn menu-toggle"
@@ -79,15 +113,15 @@ const base = Astro.url.pathname === home ? '' : home;
 
   <div class="mobile-menu" id="mobile-menu" hidden>
     <ul class="container">
-      {nav.map((id) => (
-        <li><a href={`${base}#${id}`}>{t.nav[id]}</a></li>
+      {nav.map((item) => (
+        <li><a href={item.href}>{t.nav[item.id]}</a></li>
       ))}
       <li class="mobile-langs">
         {langs.map((l) => (
           <a href={altPath(l)} hreflang={l} lang={l} aria-current={l === lang ? 'page' : undefined}>{languages[l]}</a>
         ))}
       </li>
-      <li><a href={`${base}#contact`}>{t.bookCall}</a></li>
+      <li><a href={`${base}#contact`}>{t.writeMe}</a></li>
     </ul>
   </div>
 </header>
@@ -109,7 +143,8 @@ const base = Astro.url.pathname === home ? '' : home;
 
   .bar {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto 1fr auto;
+    column-gap: 16px;
     align-items: center;
     height: var(--header-h);
   }
@@ -117,6 +152,7 @@ const base = Astro.url.pathname === home ? '' : home;
   .brand { display: inline-flex; justify-self: start; border-radius: 8px; }
   .brand :global(.brand-logo) { width: 138px; }
 
+  .nav-pill { justify-self: center; }
   .nav-pill ul {
     display: flex;
     gap: 2px;
@@ -135,6 +171,38 @@ const base = Astro.url.pathname === home ? '' : home;
     transition: background-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
   }
   .nav-pill a:hover { color: var(--emphasis); }
+
+  /* Projects dropdown, grouped by category */
+  .has-menu { position: relative; }
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 60;
+    display: none;
+    grid-template-columns: repeat(3, max-content);
+    gap: 24px;
+    margin-top: 8px;
+    padding: 20px 22px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
+  }
+  /* Keeps the pointer on the menu while crossing the gap */
+  .dropdown::before { content: ""; position: absolute; inset: -10px 0 auto; height: 10px; }
+  .has-menu:hover .dropdown,
+  .has-menu:focus-within .dropdown { display: grid; }
+  .nav-pill .dropdown ul { display: grid; gap: 2px; padding: 0; border: 0; border-radius: 0; background: none; }
+  .dropdown p {
+    margin-bottom: 8px;
+    color: var(--label);
+    font: 600 11px/1.2 var(--font-sans);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .nav-pill .dropdown a { padding: 6px 0; border-radius: 0; white-space: nowrap; }
   .nav-pill a.is-active {
     background: var(--bg);
     color: var(--heading);
@@ -234,7 +302,7 @@ const base = Astro.url.pathname === home ? '' : home;
   }
   .mobile-menu .mobile-langs a[aria-current='page'] { color: var(--heading); font-weight: 600; }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1240px) {
     .bar { grid-template-columns: 1fr auto; }
     .nav-pill { display: none; }
     .menu-toggle { display: inline-grid; }

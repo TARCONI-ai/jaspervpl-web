@@ -4,10 +4,10 @@ export const nl: Copy = {
   meta: {
     title: 'Jasper van Puffelen López · AI-engineer',
     description:
-      'Jasper van Puffelen López is AI-engineer en brengt LLM-prototypes naar productie: geëvalueerd vóór de lancering, observeerbaar in gebruik en betaalbaar op schaal.',
+      'Jasper van Puffelen López is AI-engineer bij NOBRAINERS. Hij brengt AI naar productie met een vaste methode: eerst de spec, altijd menselijke review.',
   },
   role: 'AI-engineer',
-  tagline: 'AI naar productie brengen, met methode.',
+  tagline: 'Ik breng AI naar productie met een vaste methode.',
   a11y: {
     skip: 'Naar de inhoud',
     home: 'JasperVPL, home',
@@ -18,151 +18,89 @@ export const nl: Copy = {
     toLight: 'Overschakelen naar licht thema',
     openMenu: 'Menu openen',
     closeMenu: 'Menu sluiten',
-    deliverable: 'Oplevering: ',
   },
-  nav: { work: 'Werk', method: 'Methode', lab: 'Lab', writing: 'Artikelen', contact: 'Contact', resources: 'Resources', reading: 'Leeslijst' },
-  bookCall: 'Plan een gesprek',
+  nav: { projects: 'Projecten', method: 'Hoe ik werk', about: 'Over mij', writing: 'Artikelen', contact: 'Contact', resources: 'Resources', reading: 'Leeslijst' },
+  writeMe: 'Mail me',
 
   hero: {
-    titleLine1: 'AI naar productie brengen',
-    titleLine2: 'met methode.',
-    lead: 'Ik ben Jasper, AI-engineer. Ik maak van LLM-prototypes productiesystemen die vóór de lancering geëvalueerd zijn, in gebruik observeerbaar blijven en betaalbaar zijn op schaal.',
-    ctaPrimary: 'Vertel over je project',
-    ctaSecondary: 'Bekijk mijn werk',
-    seal: 'AI-ENGINEER · MET METHODE · JASPERVPL.COM ·',
-    cardLeft: {
-      label: 'Aanpak',
-      title: 'Van prototype naar productie.',
-      text: 'Evals, guardrails en monitoring vanaf de eerste commit.',
-    },
-    cardRight: {
-      label: 'Deployment',
-      title: 'Draait waar jij draait.',
-      text: 'Jouw cloud, jouw modellen, jouw data. Geen lock-in.',
-    },
+    titleLine1: 'Ik breng AI naar productie',
+    titleLine2: 'met een vaste methode.',
+    lead: 'Ik ben Jasper, AI-engineer bij NOBRAINERS. Ik begin bij de gebruiker, schrijf de spec vóór de prompt en review wat de AI oplevert. Ik heb een achtergrond in marketing en werk in het Nederlands, Spaans en Engels.',
+    thesis: 'AI schrijft de code. De spec vooraf en de menselijke review maken het betrouwbaar.',
+    ctaPrimary: 'Bekijk projecten',
+    ctaSecondary: 'Mail me',
+    seal: 'AI-ENGINEER · VASTE METHODE · JASPERVPL.COM ·',
+    cardLeft: { label: 'Volgorde', title: 'Eerst de gebruiker.', text: 'Dan het platform, en pas dan het model.' },
+    cardRight: { label: 'Achtergrond', title: 'Achtergrond in marketing.', text: 'Daarom begin ik bij de gebruiker.' },
     ring: {
-      evals: { title: 'Evals', sub: 'eerst meten' },
-      retrieval: { title: 'Retrieval', sub: 'onderbouwde antwoorden' },
-      guardrails: { title: 'Guardrails', sub: 'beleid als code' },
-      observability: { title: 'Observability', sub: 'elke call traceren' },
-      trend: 'kwaliteit, v1 → v7',
-      bars: 'latency, p95-lijn',
-      metric: 'p95-responstijd',
+      user: { title: 'Gebruiker', sub: 'komt eerst' },
+      spec: { title: 'Spec', sub: 'vóór de prompt' },
+      review: { title: 'Review', sub: 'menselijk, altijd' },
+      verify: { title: 'Controle', sub: 'compileren is niet genoeg' },
+      nfc: { title: 'NFC-huis', sub: 'voor mijn grootouders' },
+      opo: { title: 'OpoGenius', sub: 'in de App Store' },
+      silbo: { title: 'Silbo', sub: 'lokale AI' },
+      skills: { title: 'Skills', sub: 'open source' },
     },
-    noteLeft: ['Eén engineer, van begin tot eind.', 'Van eerste eval tot runbook.'],
-    noteRight: ['Minder hype.', 'Meer methode.'],
+    noteLeft: ['Ik woon in Nederland.', 'Ik werk in drie talen.'],
+    noteRight: ['Compileren is nog geen valideren.', 'Daarom controleer ik.'],
   },
 
-  stack: { title: 'Tools waarmee ik bouw' },
-
   work: {
-    eyebrow: 'Geselecteerd werk',
-    title: 'Casestudy’s, ',
-    titleEm: 'gemeten.',
-    intro:
-      'Elk project eindigt met cijfers die iemand kan controleren: evalscores, latency, kosten en het deel van het werk dat nog door mensen wordt gedaan.',
-    sample: 'Voorbeeld',
-    sampleTitle: 'Illustratief voorbeeld. Vervangen door een echt project vóór de lancering.',
-    readMore: 'Lees de casestudy',
-    projects: {
-      'support-copilot': {
-        title: 'Supportcopilot, van demo naar dagelijks gebruik',
-        summary:
-          'Een retrieval-augmented assistent voor een supportteam, opnieuw opgebouwd rond een evaluatieset van 400 cases voordat er ook maar één prompt werd bijgesteld.',
-        tags: ['RAG', 'Evals', 'Observability'],
-        metrics: ['groundedness-score', 'mediane afhandeltijd'],
-        linkLabel: '',
-      },
-      'aio-article-gpt': {
-        title: 'Skill ai-overviews-writer',
-        summary:
-          'Een open-source skill die artikelen plant, schrijft en controleert, zodat AI-zoekmachines ze kunnen citeren. Hij vraagt eerst om een eigen praktijkvoorbeeld.',
-        tags: ['Agent Skills', 'Promptontwerp', 'GEO'],
-        metrics: [],
-        linkLabel: 'Download de skill',
-      },
-      'invoice-extraction': {
-        title: 'Factuurextractie met een mens in de loop',
-        summary:
-          'Schema-gevalideerde extractie voor leveranciersfacturen, met routering op zekerheid zodat alleen twijfelachtige velden bij een beoordelaar terechtkomen.',
-        tags: ['Gestructureerde output', 'Menselijke review'],
-        metrics: ['nauwkeurigheid per veld', 'naar review'],
-        linkLabel: '',
-      },
-    },
+    eyebrow: 'Projecten',
+    title: 'Wat ik heb ',
+    titleEm: 'gebouwd.',
+    readMore: 'Bekijk het project',
+    all: 'Alle projecten',
   },
 
   method: {
-    eyebrow: 'De methode',
-    title: 'Vier stappen. ',
-    titleEm: 'Geen shortcuts.',
-    intro:
-      'De meeste AI-projecten lopen vast tussen demo en productie. Het probleem is zelden het model, maar ontbrekende metingen. Daarom komt meten eerst.',
+    eyebrow: 'Methode',
+    title: 'Hoe ik ',
+    titleEm: 'werk.',
     steps: [
-      {
-        title: 'Afbakenen',
-        text: 'Bepaal welke taak het systeem moet uitvoeren, hoe een goed resultaat eruitziet en wat het nooit mag doen.',
-        output: 'Succesmaatstaf en risicoregister',
-      },
-      {
-        title: 'Meten',
-        text: 'Bouw eerst de evaluatieset: echte cases, automatisch gescoord, met een baseline om te verslaan.',
-        output: 'Evalsuite en baseline',
-      },
-      {
-        title: 'Bouwen',
-        text: 'Lever het kleinste systeem dat door de gates komt. Prompts, retrieval en tools worden geversioneerd als code.',
-        output: 'Geversioneerde pipeline die slaagt',
-      },
-      {
-        title: 'Beheren',
-        text: 'Traceer elke call, waarschuw bij drift en houd de kosten per antwoord binnen budget.',
-        output: 'Dashboards, alerts en runbook',
-      },
+      { title: 'Gebruiker', text: 'Voor wie los ik wat op? Daarna kies ik het platform en pas dan het model.' },
+      { title: 'Spec', text: 'Wat het moet doen, wat het nooit mag doen en hoe ik weet dat het werkt. Dat schrijf ik vóór de eerste prompt.' },
+      { title: 'Review', text: 'AI schrijft een groot deel van de code. Ik bepaal wat ik vraag en review wat eruit komt.' },
+      { title: 'Controle', text: 'Compileren is nog geen valideren. In NFC-huis dekken 37 tests de logica van de app.' },
     ],
   },
 
-  lab: {
-    eyebrow: 'In de praktijk',
-    titleBefore: 'Evaluatie ',
-    titleEm: 'vóór',
-    titleAfter: ' ambitie.',
-    intro:
-      'Elk systeem dat ik bouw begint met een testset die het moet halen. Prompts worden geversioneerd, output wordt bij elke wijziging gescoord en een gefaalde gate blokkeert de deploy. Geen releases op gevoel.',
-    points: [
-      'Evalsets op basis van jouw echte cases, niet van publieke benchmarks',
-      'Guardrails als code, gereviewd zoals elke andere wijziging',
-      'Tracing en een kostenbudget vanaf dag één',
-    ],
-    tabsLabel: 'Voorbeelden',
-    copy: 'Kopiëren',
-    copied: 'Gekopieerd',
-    selectToCopy: 'Selecteer om te kopiëren',
+  stack: {
+    eyebrow: 'Stack',
+    title: 'Waar ik mee ',
+    titleEm: 'werk.',
+    groups: { languages: 'Talen', build: 'Waarmee ik bouw', local: 'Lokale AI', setup: 'Mijn apparatuur' },
+    setup: 'MacBook Pro met M5 Pro en 24 GB geheugen. Ik kocht hem begin 2026 om met lokale modellen te kunnen werken. Hierop ontwikkelde ik Silbo, dat een model van 7,7 GB gebruikt dat op mijn eigen Mac draait.',
+  },
+
+  about: {
+    eyebrow: 'Over mij',
+    title: 'Wie ',
+    titleEm: 'ik ben.',
+    text: 'Ik kom van de Canarische Eilanden en woon in Nederland. Ik werkte vier jaar in marketing en SEO, en daarom begin ik bij de gebruiker. Nu ben ik AI-engineer bij NOBRAINERS. Hier vertel ik hoe ik werk en wat er onderweg misgaat.',
   },
 
   writing: {
     eyebrow: 'Artikelen',
-    title: 'Notities uit de ',
-    titleEm: 'praktijk.',
-    intro: 'Heldere uitleg over de tools en protocollen die toegepaste AI veranderen. Gepubliceerd in het Spaans.',
+    title: 'Laatste ',
+    titleEm: 'artikelen.',
     all: 'Alle artikelen',
-    readMore: 'Lees in het Spaans',
+    readMore: 'Lees artikel',
     dateLocale: 'nl-NL',
-    topics: { agents: 'Agents', protocols: 'Protocollen', gpts: 'Custom GPTs' },
   },
 
   contact: {
-    label: 'Volgende stap',
-    title: 'Heb je een prototype dat ',
-    titleEm: 'volwassen moet worden?',
-    text: 'Vertel me waar het nu staat: de use case, de data en wat de lancering tegenhoudt. Je krijgt een eerlijke eerste inschatting van wat er nodig is om live te gaan.',
-    cta: 'Vertel over je project',
+    label: 'Contact',
+    title: 'Breng je AI naar productie? ',
+    titleEm: 'Dan hoor ik graag hoe je dat aanpakt.',
+    text: 'Mail me of zoek me op via LinkedIn.',
   },
 
   footer: {
     site: 'Site',
     elsewhere: 'Elders',
     email: 'E-mail',
-    colophon: 'JasperVPL brand v2 · Gezet in Fraunces & IBM Plex · Gebouwd met Astro',
+    colophon: 'JasperVPL brand v2 · Gezet in Fraunces en IBM Plex · Gebouwd met Astro',
   },
 };

@@ -1,0 +1,33 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+import { getCopy } from '../data/i18n';
+
+const t = getCopy(Astro.currentLocale);
+---
+<section class="section about" id="about" aria-labelledby="about-title">
+  <div class="container inner">
+    <header class="section-head reveal">
+      <span class="eyebrow">{t.about.eyebrow}</span>
+      <h2 id="about-title">{t.about.title}<em>{t.about.titleEm}</em></h2>
+    </header>
+    <div class="reveal copy">
+      <p>{t.about.text}</p>
+      <p class="links">
+        <a href={site.linkedin} rel="me noopener">LinkedIn <Icon name="arrow-up-right" /></a>
+        <a href={site.github} rel="me noopener">GitHub <Icon name="arrow-up-right" /></a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: 24px clamp(32px, 6vw, 80px); align-items: start; }
+  .inner .section-head { margin-bottom: 0; }
+  .copy { display: grid; gap: 20px; }
+  .copy > p:first-child { font-size: 20px; line-height: 1.6; }
+  .links { display: flex; gap: 20px; }
+  .links a { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+  .links :global(svg) { width: 14px; height: 14px; }
+  @media (max-width: 900px) { .inner { grid-template-columns: 1fr; } }
+</style>
