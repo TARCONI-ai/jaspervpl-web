@@ -1,0 +1,24 @@
+# jaspervpl.com
+
+> Personal site of Jasper van Puffelen López, AI engineer at NOBRAINERS. He takes AI to production with a method: spec first, human review always. Content in English, Spanish and Dutch.
+
+## English
+- [Home](https://jaspervpl.com/): who he is, how he works and his stack
+- [Projects](https://jaspervpl.com/projects/): apps, applied AI and Mac utilities, each with its problem, decisions and result
+- [Writing](https://jaspervpl.com/writing/): articles on applied AI and the archive from his marketing years
+- [Resources](https://jaspervpl.com/resources/): open tools to download and adapt
+- [Reading](https://jaspervpl.com/reading/): the books that shaped him
+
+## Español
+- [Inicio](https://jaspervpl.com/es/)
+- [Proyectos](https://jaspervpl.com/es/proyectos/)
+- [Blog](https://jaspervpl.com/blog/)
+- [Recursos](https://jaspervpl.com/es/recursos/)
+- [Lecturas](https://jaspervpl.com/es/lecturas/)
+
+## Nederlands
+- [Home](https://jaspervpl.com/nl/)
+- [Projecten](https://jaspervpl.com/nl/projecten/)
+- [Blog](https://jaspervpl.com/nl/blog/)
+- [Resources](https://jaspervpl.com/nl/resources/)
+- [Leeslijst](https://jaspervpl.com/nl/leeslijst/)

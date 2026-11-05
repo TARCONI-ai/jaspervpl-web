@@ -1,0 +1,37 @@
+---
+// GitHub Pages serves one 404 for the whole site, so it speaks all three languages.
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+const messages = [
+  { lang: 'es', title: 'Esta página ya no está aquí.', text: 'La web ha cambiado y algunas direcciones antiguas ya no existen.', home: '/es/', cta: 'Ir al inicio' },
+  { lang: 'nl', title: 'Deze pagina staat hier niet meer.', text: 'De site is veranderd en sommige oude adressen bestaan niet meer.', home: '/nl/', cta: 'Naar de homepage' },
+  { lang: 'en', title: 'This page is no longer here.', text: 'The site has changed and some old addresses no longer exist.', home: '/', cta: 'Go to the home page' },
+];
+---
+<Base title={`404 · ${site.name}`} description="Page not found" alternates={{}}>
+  <Header />
+  <main id="main" class="not-found">
+    <div class="container narrow">
+      {messages.map((m) => (
+        <section lang={m.lang}>
+          <h1>{m.title}</h1>
+          <p>{m.text}</p>
+          <a href={m.home}>{m.cta}</a>
+        </section>
+      ))}
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .not-found { padding-block: clamp(48px, 8vw, 96px); }
+  .narrow { display: grid; gap: 40px; max-width: 46rem; }
+  section { display: grid; gap: 10px; justify-items: start; }
+  section + section { padding-top: 40px; border-top: 1px solid var(--border); }
+  h1 { font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.25rem); line-height: 1.15; }
+  a { font-weight: 600; }
+</style>
