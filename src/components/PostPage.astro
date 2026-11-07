@@ -6,7 +6,7 @@ import Base from '../layouts/Base.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import Icon from './Icon.astro';
-import { site } from '../data/site';
+import { site, pageTitle } from '../data/site';
 import { homePath } from '../data/i18n';
 import { blog, blogPath, excerpt } from '../data/blog';
 import { reading, readingPath } from '../data/reading';
@@ -67,7 +67,7 @@ const jsonLd = {
   ],
 };
 ---
-<Base title={`${d.title} · ${site.name}`} description={description} lang={lang} alternates={alternates} jsonLd={jsonLd} ogImage={cover?.src}>
+<Base title={pageTitle(d.title)} description={description} lang={lang} alternates={alternates} jsonLd={jsonLd} ogImage={cover?.src}>
   <Header lang={lang} alternates={alternates} />
   <main id="main" class="post">
     <article class="container narrow">
