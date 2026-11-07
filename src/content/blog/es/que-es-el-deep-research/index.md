@@ -1,6 +1,6 @@
 ---
 title: "¿Qué es el Deep Research?"
-date: 2025-03-01
+date: 2025-07-20
 lang: es
 slug: "que-es-el-deep-research"
 categories: ["noticias"]
@@ -8,11 +8,13 @@ translationKey: "que-es-el-deep-research"
 cover: "./images/ChatGPT-Image-20-jul-2025-14_46_24.png"
 coverAiGenerated: true
 permalink: "/blog/noticias/que-es-el-deep-research/"
-section: ai
-draft: true
+section: archive
+draft: false
 ---
 
 Deep Research es una capacidad avanzada de IA que busca, analiza y sintetiza información de múltiples fuentes en la web de forma autónoma, entregando informes extensos y con citas claras en minutos. Es ideal para trabajos de investigación, finanzas, ciencias, compras complejas o análisis rigurosos.
+
+> **Nota de noviembre de 2026:** los modelos, planes y límites que cito son los de mediados de 2025. Hoy han cambiado.
 
 ## ¿Qué hace Deep Research?
 
@@ -60,14 +62,14 @@ Deep Research trabaja como un agente autónomo:
 
 ### 2\. **Perplexity Deep Research**
 
-- **Pros**: gratuito con citas robustas; Pro incluye modelos GPT‑4 .1, Claude 4, Gemma; excelente para respuestas rápidas.
+- **Pros**: gratuito con citas robustas; Pro incluye modelos GPT-4.1, Claude 4, Gemma; excelente para respuestas rápidas.
     
 - **Contras**: interfaz menos versátil en síntesis larga; menor control iterativo.
     
 
 ### 3\. **Gemini Deep Research** (modelos Gemini 2.5 Pro/Flash)
 
-- **Pros**: síntesis muy estructurada, mejor prioridades, visión multimodal, pocas “alucinaciones” según usuarios.
+- **Pros**: síntesis muy estructurada, buena priorización, visión multimodal, pocas “alucinaciones” según usuarios.
     
 - **Contras**: acceso restringido a planes avanzados; menos flexibilidad que ChatGPT.
     
