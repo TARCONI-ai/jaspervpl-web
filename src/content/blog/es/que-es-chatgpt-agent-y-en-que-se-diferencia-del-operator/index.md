@@ -7,8 +7,8 @@ categories: ["noticias"]
 translationKey: "que-es-chatgpt-agent-y-en-que-se-diferencia-del-operator"
 cover: "./images/A_digital_graphic_design_features_Spanish_text_inq.png"
 permalink: "/blog/noticias/que-es-chatgpt-agent-y-en-que-se-diferencia-del-operator/"
-section: ai
-draft: true
+section: archive
+draft: false
 ---
 
 Un **_agente_ en ChatGPT** es un asistente capaz de planificar, ejecutar tareas multietapa y recordar contexto entre sesiones. Utiliza herramientas como navegador visual, ejecución de código, conectores y memoria integrada.
@@ -23,6 +23,8 @@ Un **_agente_ en ChatGPT** es un asistente capaz de planificar, ejecutar tareas 
 - Realiza tareas de planificación como calendarios editoriales o reservas, con confirmaciones antes de ejecutar cambios sensibles.
 
 ## ¿En qué se diferencia del Operator?
+
+> **Nota de noviembre de 2026:** Operator ya no existe como producto aparte, y el navegador Atlas de OpenAI cerró en agosto de 2026. Sus funciones pasaron a ChatGPT y a Codex. La tabla refleja la situación de agosto de 2025.
 
 |   **Funcionalidad**   |   **Operator**   |   **ChatGPT Agent**   |
 | --- | --- | --- |
